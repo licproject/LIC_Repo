@@ -1,73 +1,78 @@
 package com.lic.package.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "policy")
 public class Policy {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	private String policyNumber;
-	private String schemeType;
-	private String mphName;
-	private String mphCode;
-	private String policyStatus;
-	
-	public Policy() {}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "policy_number")
+    private String policyNumber;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    @Column(name = "scheme_type")
+    private String schemeType;
 
-	public String getPolicyNumber() {
-		return policyNumber;
-	}
+    @Column(name = "mph_name")
+    private String mphName;
 
-	public void setPolicyNumber(String policyNumber) {
-		this.policyNumber = policyNumber;
-	}
+    @Column(name = "mph_code")
+    private String mphCode;
 
-	public String getSchemeType() {
-		return schemeType;
-	}
+    @Column(name = "policy_status")
+    private String policyStatus;
 
-	public void setSchemeType(String schemeType) {
-		this.schemeType = schemeType;
-	}
+    public Policy() {}
 
-	public String getMphName() {
-		return mphName;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setMphName(String mphName) {
-		this.mphName = mphName;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getMphCode() {
-		return mphCode;
-	}
+    public String getPolicyNumber() {
+        return policyNumber;
+    }
 
-	public void setMphCode(String mphCode) {
-		this.mphCode = mphCode;
-	}
+    public void setPolicyNumber(String policyNumber) {
+        this.policyNumber = policyNumber;
+    }
 
-	public String getPolicyStatus() {
-		return policyStatus;
-	}
+    public String getSchemeType() {
+        return schemeType;
+    }
 
-	public void setPolicyStatus(String policyStatus) {
-		this.policyStatus = policyStatus;
-	}
-	
-	
-	
+    public void setSchemeType(String schemeType) {
+        this.schemeType = schemeType;
+    }
+
+    public String getMphName() {
+        return mphName;
+    }
+
+    public void setMphName(String mphName) {
+        this.mphName = mphName;
+    }
+
+    public String getMphCode() {
+        return mphCode;
+    }
+
+    public void setMphCode(String mphCode) {
+        this.mphCode = mphCode;
+    }
+
+    public String getPolicyStatus() {
+        return policyStatus;
+    }
+
+    public void setPolicyStatus(String policyStatus) {
+        this.policyStatus = policyStatus;
+    }
+
 }
