@@ -12,38 +12,13 @@ import com.lic.package.service.PolicyService;
 
 @RestController
 public class PolicyController {
-	
-	@Autowired
-	private PolicyService policyService;
-	
-	@GetMapping("/policies")
-	public List<Policy> getPoliciesByCriteria(@RequestParam(required = false) String policyNumber, 
-											@RequestParam(required = false) String schemeType,
-											@RequestParam(required = false) String mphName, 
-											@RequestParam(required = false) String mphCode,
-											@RequestParam(required = false) String policyStatus) {
-		
-		if(policyNumber != null) {
-			return policyService.findPoliciesByPolicyNumber(policyNumber);
-		}
-		
-		if(schemeType != null) {
-			return policyService.findPoliciesBySchemeType(schemeType);
-		}
-		
-		if(mphName != null) {
-			return policyService.findPoliciesByMphName(mphName);
-		}
-		
-		if(mphCode != null) {
-			return policyService.findPoliciesByMphCode(mphCode);
-		}
-		
-		if(policyStatus != null) {
-			return policyService.findPoliciesByPolicyStatus(policyStatus);
-		}
-		
-		return null;
-	}
+
+    @Autowired
+    private PolicyService policyService;
+
+    @GetMapping("/searchPolicies")
+    public List<Policy> searchPolicies(@RequestParam String policyNumber, @RequestParam String schemeType, @RequestParam String mphName, @RequestParam String mphCode, @RequestParam String policyStatus) {
+        return policyService.searchPolicies(policyNumber, schemeType, mphName, mphCode, policyStatus);
+    }
 
 }

@@ -1,11 +1,11 @@
 package com.lic.package.model;
 
 import javax.persistence.*;
-import java.util.List;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "policy")
-public class Policy {
+public class Policy implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,4 +73,5 @@ public class Policy {
     public void setPolicyStatus(String policyStatus) {
         this.policyStatus = policyStatus;
     }
+
 }
