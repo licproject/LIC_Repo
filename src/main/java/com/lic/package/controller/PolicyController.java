@@ -1,47 +1,50 @@
 package com.lic.package.controller;
 
-import com.lic.package.model.Policy;
-import com.lic.package.repository.PolicyRepository;
-import com.lic.package.service.PolicyService;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.lic.package.model.Policy;
+import com.lic.package.service.PolicyService;
 
 @RestController
-@RequestMapping("/policy")
+@RequestMapping("/policies")
 public class PolicyController {
 
     @Autowired
     private PolicyService policyService;
 
-    @Autowired
-    private PolicyRepository policyRepository;
+    @GetMapping("/all")
+    public List<Policy> getAllPolicies(){
+        return policyService.getAllPolicies();
+    }
 
-    @GetMapping("/search")
-    public List<Policy> searchPolicies(@RequestParam(name = "policyNumber", required = false) String policyNumber,
-            @RequestParam(name = "schemeType", required = false) String schemeType,
-            @RequestParam(name = "mphName", required = false) String mphName,
-            @RequestParam(name = "mphCode", required = false) String mphCode,
-            @RequestParam(name = "policyStatus", required = false) String policyStatus) {
-        List<Policy> policies = null;
-        if (policyNumber != null) {
-            policies = policyService.findByPolicyNumber(policyNumber);
-        } else if (schemeType != null) {
-            policies = policyService.findBySchemeType(schemeType);
-        } else if (mphName != null) {
-            policies = policyService.findByMphName(mphName);
-        } else if (mphCode != null) {
-            policies = policyService.findByMphCode(mphCode);
-        } else if (policyStatus != null) {
-            policies = policyService.findByPolicyStatus(policyStatus);
-        } else {
-            policies = policyService.getAllPolicies();
-        }
-        return policies;
+    @GetMapping("/{policyNumber}")
+    public Policy getPolicyByNumber(@PathVariable String policyNumber){
+        return policyService.getPolicyByNumber(policyNumber);
+    }
+
+    @GetMapping("/scheme-type/{schemeType}")
+    public List<Policy> getPoliciesBySchemeType(@PathVariable String schemeType){
+        return policyService.getPoliciesBySchemeType(schemeType);
+    }
+
+    @GetMapping("/mph-name/{mphName}")
+    public List<Policy> getPoliciesByMphName(@PathVariable String mphName){
+        return policyService.getPoliciesByMphName(mphName);
+    }
+
+    @GetMapping("/mph-code/{mphCode}")
+    public List<Policy> getPoliciesByMphCode(@PathVariable String mphCode){
+        return policyService.getPoliciesByMphCode(mphCode);
+    }
+
+    @GetMapping("/status/{policyStatus}")
+    public List<Policy> getPoliciesByStatus(@PathVariable String policyStatus){
+        return policyService.getPoliciesByStatus(policyStatus);
     }
 }

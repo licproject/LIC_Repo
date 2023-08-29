@@ -1,41 +1,40 @@
 package com.lic.package.service;
 
-import com.lic.package.model.Policy;
-import com.lic.package.repository.PolicyRepository;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.lic.package.model.Policy;
+import com.lic.package.repository.PolicyRepository;
 
 @Service
 public class PolicyService {
 
     @Autowired
-    private PolicyRepository policyRepository;
+    private PolicyRepository policyRepo;
 
-    public List<Policy> findByPolicyNumber(String policyNumber) {
-        return policyRepository.findByPolicyNumber(policyNumber);
+    public List<Policy> getAllPolicies(){
+        return policyRepo.findAll();
     }
-
-    public List<Policy> findBySchemeType(String schemeType) {
-        return policyRepository.findBySchemeType(schemeType);
+    
+    public Policy getPolicyByNumber(String policyNumber){
+        return policyRepo.findByPolicyNumber(policyNumber);
     }
-
-    public List<Policy> findByMphName(String mphName) {
-        return policyRepository.findByMphName(mphName);
+    
+    public List<Policy> getPoliciesBySchemeType(String schemeType){
+        return policyRepo.findBySchemeType(schemeType);
     }
-
-    public List<Policy> findByMphCode(String mphCode) {
-        return policyRepository.findByMphCode(mphCode);
+    
+    public List<Policy> getPoliciesByMphName(String mphName){
+        return policyRepo.findByMphName(mphName);
     }
-
-    public List<Policy> findByPolicyStatus(String policyStatus) {
-        return policyRepository.findByPolicyStatus(policyStatus);
+    
+    public List<Policy> getPoliciesByMphCode(String mphCode){
+        return policyRepo.findByMphCode(mphCode);
     }
-
-    public List<Policy> getAllPolicies() {
-        return policyRepository.findAll();
+    
+    public List<Policy> getPoliciesByStatus(String policyStatus){
+        return policyRepo.findByPolicyStatus(policyStatus);
     }
-
 }
