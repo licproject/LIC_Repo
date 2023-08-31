@@ -1,78 +1,58 @@
 package com.lic.package.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
-@Table(name = "policy")
 public class Policy {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "policy_number")
-    private String policyNumber;
-
-    @Column(name = "scheme_type")
-    private String schemeType;
-
-    @Column(name = "mph_name")
-    private String mphName;
-
-    @Column(name = "mph_code")
-    private String mphCode;
-
-    @Column(name = "policy_status")
-    private String policyStatus;
-
-    public Policy() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getPolicyNumber() {
-        return policyNumber;
-    }
-
-    public void setPolicyNumber(String policyNumber) {
-        this.policyNumber = policyNumber;
-    }
-
-    public String getSchemeType() {
-        return schemeType;
-    }
-
-    public void setSchemeType(String schemeType) {
-        this.schemeType = schemeType;
-    }
-
-    public String getMphName() {
-        return mphName;
-    }
-
-    public void setMphName(String mphName) {
-        this.mphName = mphName;
-    }
-
-    public String getMphCode() {
-        return mphCode;
-    }
-
-    public void setMphCode(String mphCode) {
-        this.mphCode = mphCode;
-    }
-
-    public String getPolicyStatus() {
-        return policyStatus;
-    }
-
-    public void setPolicyStatus(String policyStatus) {
-        this.policyStatus = policyStatus;
-    }
+ 
+ @Id
+ private int policyNumber;
+ private String basicDetails;
+ private String bankDetails;
+ private String addressDetails;
+ private String contactPersonDetails;
+ 
+ //Getters and setters
+ 
+ public int getPolicyNumber() {
+  return policyNumber;
+ }
+ 
+ public void setPolicyNumber(int policyNumber) {
+  this.policyNumber = policyNumber;
+ }
+ 
+ public String getBasicDetails() {
+  return basicDetails;
+ }
+ 
+ public void setBasicDetails(String basicDetails) {
+  this.basicDetails = basicDetails;
+ }
+ 
+ public String getBankDetails() {
+  return bankDetails;
+ }
+ 
+ public void setBankDetails(String bankDetails) {
+  this.bankDetails = bankDetails;
+ }
+ 
+ public String getAddressDetails() {
+  return addressDetails;
+ }
+ 
+ public void setAddressDetails(String addressDetails) {
+  this.addressDetails = addressDetails;
+ }
+ 
+ public String getContactPersonDetails() {
+  return contactPersonDetails;
+ }
+ 
+ public void setContactPersonDetails(String contactPersonDetails) {
+  this.contactPersonDetails = contactPersonDetails;
+ }
 
 }
