@@ -1,100 +1,110 @@
-+
-		"AND (:mph_name IS NULL OR mph.mph_name = :mph_name) " +
-		"AND (:account_number IS NULL OR bank.account_number = :account_number)",
-		nativeQuery = true)
-	Integer getTotalCountForPolicyDetails(
-		@Param("mph_code") String mph_code, 
-		@Param("mph_name") String mph_name, 
-		@Param("account_number") String account_number);
-	
-}
-
 package com.lic.package.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Entity
-@Table(name = "PMST_MPH")
 public class PolicyDetails {
+    
+    @Id
+    private String mphCode;
+    private String mphName;
+    private String bankName;
+    private String bankBranch;
+    private String accountNumber;
+    private String cityLocality;
+    private String district;
+    private int totalCount;
+    private int noOfPages;
+    
+    public PolicyDetails() {
+    }
+    
+    public String getMphCode() {
+        return this.mphCode;
+    }
+    
+    public void setMphCode(String mphCode) {
+        this.mphCode = mphCode;
+    }
+    
+    public String getMphName() {
+        return this.mphName;
+    }
+    
+    public void setMphName(String mphName) {
+        this.mphName = mphName;
+    }
+    
+    public String getBankName() {
+        return this.bankName;
+    }
+    
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
+    }
+    
+    public String getBankBranch() {
+        return this.bankBranch;
+    }
+    
+    public void setBankBranch(String bankBranch) {
+        this.bankBranch = bankBranch;
+    }
+    
+    public String getAccountNumber() {
+        return this.accountNumber;
+    }
+    
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+    
+    public String getCityLocality() {
+        return this.cityLocality;
+    }
+    
+    public void setCityLocality(String cityLocality) {
+        this.cityLocality = cityLocality;
+    }
+    
+    public String getDistrict() {
+        return this.district;
+    }
+    
+    public void setDistrict(String district) {
+        this.district = district;
+    }
+    
+    public int getTotalCount() {
+        return this.totalCount;
+    }
+    
+    public void setTotalCount(int totalCount) {
+        this.totalCount = totalCount;
+    }
+    
+    public int getNoOfPages() {
+        return this.noOfPages;
+    }
+    
+    public void setNoOfPages(int noOfPages) {
+        this.noOfPages = noOfPages;
+    }
+    
+    @Override
+    public String toString() {
+        return "{" +
+            " mphCode='" + getMphCode() + "'" +
+            ", mphName='" + getMphName() + "'" +
+            ", bankName='" + getBankName() + "'" +
+            ", bankBranch='" + getBankBranch() + "'" +
+            ", accountNumber='" + getAccountNumber() + "'" +
+            ", cityLocality='" + getCityLocality() + "'" +
+            ", district='" + getDistrict() + "'" +
+            ", totalCount='" + getTotalCount() + "'" +
+            ", noOfPages='" + getNoOfPages() + "'" +
+            "}";
+    }
 
-	@Id
-	private Long mph_code;
-	private String mph_name;
-	private String bank_name;
-	private String bank_branch;
-	private String account_number;
-	private String city_locality;
-	private String district;
-	private String representatives;
-	
-	public PolicyDetails() {
-		
-	}
-	
-	public Long getMph_code() {
-		return mph_code;
-	}
-	
-	public void setMph_code(Long mph_code) {
-		this.mph_code = mph_code;
-	}
-	
-	public String getMph_name() {
-		return mph_name;
-	}
-	
-	public void setMph_name(String mph_name) {
-		this.mph_name = mph_name;
-	}
-	
-	public String getBank_name() {
-		return bank_name;
-	}
-	
-	public void setBank_name(String bank_name) {
-		this.bank_name = bank_name;
-	}
-	
-	public String getBank_branch() {
-		return bank_branch;
-	}
-	
-	public void setBank_branch(String bank_branch) {
-		this.bank_branch = bank_branch;
-	}
-	
-	public String getAccount_number() {
-		return account_number;
-	}
-	
-	public void setAccount_number(String account_number) {
-		this.account_number = account_number;
-	}
-	
-	public String getCity_locality() {
-		return city_locality;
-	}
-	
-	public void setCity_locality(String city_locality) {
-		this.city_locality = city_locality;
-	}
-	
-	public String getDistrict() {
-		return district;
-	}
-	
-	public void setDistrict(String district) {
-		this.district = district;
-	}
-	
-	public String getRepresentatives() {
-		return representatives;
-	}
-	
-	public void setRepresentatives(String representatives) {
-		this.representatives = representatives;
-	}
-	
 }

@@ -14,14 +14,14 @@ public class PolicyDetailsService {
 	@Autowired
 	private PolicyDetailsRepository policyDetailsRepository;
 	
-	public List<PolicyDetails> findPolicyDetails(String mph_code, String mph_name, String account_number, String sort_1,
-			String sort_2, String sort_3, String sort_4, String sort_5, String sort_6, Integer page_no) {
-		return policyDetailsRepository.findPolicyDetails(mph_code, mph_name, account_number, sort_1, sort_2, sort_3, sort_4, sort_5, sort_6, page_no);
+	public List<PolicyDetails> getPolicyDetails(String mphCode, String mphName, String accountNumber, 
+			boolean sortByMphNameAsc, boolean sortByMphNameDesc, boolean sortByBankNameAsc, boolean sortByBankNameDesc, 
+			boolean sortByBankBranchAsc, boolean sortByBankBranchDesc, boolean sortByAccountNumberAsc, boolean sortByAccountNumberDesc, 
+			boolean sortByCityLocalityAsc, boolean sortByCityLocalityDesc, boolean sortByDistrictAsc, boolean sortByDistrictDesc, int pageNumber) {
+		return policyDetailsRepository.getPolicyDetails(mphCode, mphName, accountNumber, 
+				sortByMphNameAsc, sortByMphNameDesc, sortByBankNameAsc, sortByBankNameDesc, 
+				sortByBankBranchAsc, sortByBankBranchDesc, sortByAccountNumberAsc, sortByAccountNumberDesc, 
+				sortByCityLocalityAsc, sortByCityLocalityDesc, sortByDistrictAsc, sortByDistrictDesc, pageNumber);
 	}
-	
-	public int getTotalPages(String mph_code, String mph_name, String account_number) {
-		int totalCount = policyDetailsRepository.getTotalCount(mph_code, mph_name, account_number);
-		int noOfPages = (int)Math.ceil(totalCount / 10.0);
-		return noOfPages;
-	}
+
 }
