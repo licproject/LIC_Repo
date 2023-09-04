@@ -1,50 +1,95 @@
 package com.lic.package.controller;
 
-import com.lic.package.entity.PolicyEntity;
-import com.lic.package.repository.PolicyRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import java.util.List;
 import java.util.Optional;
 
-@RestController
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.lic.package.model.Policy;
+import com.lic.package.repository.PolicyRepository;
+import com.lic.package.service.PolicyService;
+
+@Controller
+@RequestMapping("/policy")
 public class PolicyController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyController.class);
-    private static final String DEFAULT_MEMBER_STATUS = "Active";
-    private static final String DEFAULT_CATEGORY_NO = "";
-    private static final boolean DEFAULT_ACTIVE_STATUS = true;
-    private static final boolean DEFAULT_ZERO_ID_STATUS = false;
-
-    private PolicyRepository policyRepository;
+    @Autowired
+    private PolicyService policyService;
 
     @Autowired
-    public PolicyController(PolicyRepository policyRepository) {
-        this.policyRepository = policyRepository;
+    private PolicyRepository policyRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    @GetMapping("/search/{mphCode}")
+    public ResponseEntity<Policy> searchByMphCode(@PathVariable String mphCode) {
+        Policy policy = policyService.findByMphCode(mphCode);
+        if (policy != null) {
+            return new ResponseEntity<>(policy, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/policy/findByMphCode")
-    public void findByMphCode(@RequestParam String mphCode) {
-        Optional<PolicyEntity> policyEntity = policyRepository.findByMphCode(mphCode);
-        policyEntity.ifPresentOrElse(
-                entity -> insertMemberFromPolicy(mphCode, entity.getLicId(), entity.getPolicyId()),
-                () -> LOGGER.info("No matching policy found for MPH code {}", mphCode));
+    @PostMapping("/insert/")
+    public ResponseEntity<Policy> insertIntoMembers(@RequestBody Policy policy) {
+        String queryString = "INSERT INTO Members (licId, policyId, memberStatus, fatherName, firstName, lastName, categoryNo, isActive, isZeroId) VALUES (?1, ?2, 'Active', ?3, ?4, ?5, ?6, ?7, ?8)";
+        Query query = entityManager.createNativeQuery(queryString);
+        query.setParameter(1, policy.getLicId());
+        query.setParameter(2, policy.getPolicyId());
+        query.setParameter(3, policy.getFatherName());
+        query.setParameter(4, policy.getFirstName());
+        query.setParameter(5, policy.getLastName());
+        query.setParameter(6, policy.getCategoryNo());
+        query.setParameter(7, policy.getIsActive());
+        query.setParameter(8, policy.getIsZeroId());
+
+        try {
+            query.executeUpdate();
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/policy/update")
-    public void updateMemberFromPolicy(@RequestParam long licId, @RequestParam long policyId) {
-        policyRepository.updateMemberFromPolicy(licId, policyId, DEFAULT_MEMBER_STATUS, DEFAULT_CATEGORY_NO, DEFAULT_ACTIVE_STATUS, DEFAULT_ZERO_ID_STATUS);
-        LOGGER.info("Record successfully updated in Members table. LIC ID: {}, Policy ID: {}", licId, policyId);
+    @GetMapping("/all")
+    public ResponseEntity<List<Policy>> getAllPolicies() {
+        List<Policy> policies = policyService.getAllPolicies();
+        if (policies != null) {
+            return new ResponseEntity<>(policies, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @Transactional
-    private void insertMemberFromPolicy(String mphCode, long licId, long policyId) {
-        policyRepository.insertMemberFromPolicy(mphCode, DEFAULT_MEMBER_STATUS, DEFAULT_CATEGORY_NO, DEFAULT_ACTIVE_STATUS, DEFAULT_ZERO_ID_STATUS);
-        LOGGER.info("Record successfully inserted into Members table. MPH Code: {}, LIC ID: {}, Policy ID: {}", mphCode, licId, policyId);
+    @GetMapping("/{policyId}")
+    public ResponseEntity<Policy> getPolicyById(@PathVariable String policyId) {
+        Optional<Policy> policy = policyService.getPolicyById(policyId);
+        if (policy.isPresent()) {
+            return new ResponseEntity<>(policy.get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-}
+    @PostMapping("/create")
+    public ResponseEntity<Policy> createPolicy(@RequestBody Policy policy) {
+        Policy createdPolicy = policyService.createPolicy(policy);
+        if (createdPolicy != null) {
+            return new ResponseEntity<>(createdPolicy, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<Policy> updatePolicy

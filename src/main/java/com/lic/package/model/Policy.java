@@ -5,54 +5,103 @@ import javax.persistence.Id;
 
 @Entity
 public class Policy {
- 
- @Id
- private int policyNumber;
- private String basicDetails;
- private String bankDetails;
- private String addressDetails;
- private String contactPersonDetails;
- 
- //Getters and setters
- 
- public int getPolicyNumber() {
-  return policyNumber;
- }
- 
- public void setPolicyNumber(int policyNumber) {
-  this.policyNumber = policyNumber;
- }
- 
- public String getBasicDetails() {
-  return basicDetails;
- }
- 
- public void setBasicDetails(String basicDetails) {
-  this.basicDetails = basicDetails;
- }
- 
- public String getBankDetails() {
-  return bankDetails;
- }
- 
- public void setBankDetails(String bankDetails) {
-  this.bankDetails = bankDetails;
- }
- 
- public String getAddressDetails() {
-  return addressDetails;
- }
- 
- public void setAddressDetails(String addressDetails) {
-  this.addressDetails = addressDetails;
- }
- 
- public String getContactPersonDetails() {
-  return contactPersonDetails;
- }
- 
- public void setContactPersonDetails(String contactPersonDetails) {
-  this.contactPersonDetails = contactPersonDetails;
- }
+
+    @Id
+    private String mphCode;
+    private String licId;
+    private String policyId;
+    private String fatherName;
+    private String firstName;
+    private String lastName;
+    private int categoryNo;
+    private int isActive;
+    private int isZeroId;
+
+    public Policy() {
+    }
+
+    public Policy(String mphCode, String licId, String policyId, String fatherName, String firstName, String lastName, int categoryNo, int isActive, int isZeroId) {
+        this.mphCode = mphCode;
+        this.licId = licId;
+        this.policyId = policyId;
+        this.fatherName = fatherName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.categoryNo = categoryNo;
+        this.isActive = isActive;
+        this.isZeroId = isZeroId;
+    }
+
+    public String getMphCode() {
+        return mphCode;
+    }
+
+    public void setMphCode(String mphCode) {
+        this.mphCode = mphCode;
+    }
+
+    public String getLicId() {
+        return licId;
+    }
+
+    public void setLicId(String licId) {
+        this.licId = licId;
+    }
+
+    public String getPolicyId() {
+        return policyId;
+    }
+
+    public void setPolicyId(String policyId) {
+        this.policyId = policyId;
+    }
+
+    public String getFatherName() {
+        return fatherName;
+    }
+
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public int getCategoryNo() {
+        return categoryNo;
+    }
+
+    public void setCategoryNo(int categoryNo) {
+        this.categoryNo = categoryNo;
+    }
+
+    public int getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(int isActive) {
+        this.isActive = isActive;
+    }
+
+    public int getIsZeroId() {
+        return isZeroId;
+    }
+
+    public void setIsZeroId(int isZeroId) {
+        this.isZeroId = isZeroId;
+    }
 
 }

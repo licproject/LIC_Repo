@@ -1,44 +1,61 @@
 package com.lic.package.service;
 
-import com.lic.package.entity.PolicyEntity;
-import com.lic.package.repository.PolicyRepository;
+import java.util.List;
+import java.util.Optional;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
+import com.lic.package.repository.PolicyRepository;
 
 @Service
 public class PolicyService {
 
-    private static final String DEFAULT_MEMBER_STATUS = "Active";
-    private static final String DEFAULT_CATEGORY_NO = "";
-    private static final boolean DEFAULT_ACTIVE_STATUS = true;
-    private static final boolean DEFAULT_ZERO_ID_STATUS = false;
-
+    @Autowired
     private PolicyRepository policyRepository;
 
-    @Autowired
-    public PolicyService(PolicyRepository policyRepository) {
-        this.policyRepository = policyRepository;
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public Optional<PolicyEntity> findByMphCode(String mphCode) {
+    public Policy findByMphCode(String mphCode) {
         return policyRepository.findByMphCode(mphCode);
     }
 
-    @Transactional
-    public void insertMemberFromPolicy(String mphCode) {
-        Optional<PolicyEntity> policyEntity = policyRepository.findByMphCode(mphCode);
-        policyEntity.ifPresent(entity -> {
-            policyRepository.insertMemberFromPolicy(mphCode, DEFAULT_MEMBER_STATUS, DEFAULT_CATEGORY_NO, DEFAULT_ACTIVE_STATUS, DEFAULT_ZERO_ID_STATUS);
-            System.out.println("Record successfully inserted into Members table.");
-        });
+    public void saveAndInsertIntoMembers(String licId, String policyId, String fatherName, String firstName, String lastName, int categoryNo, int isActive, int isZeroId) {
+        String queryString = "INSERT INTO Members (licId, policyId, memberStatus, fatherName, firstName, lastName, categoryNo, isActive, isZeroId) VALUES (?1, ?2, 'Active', ?3, ?4, ?5, ?6, ?7, ?8)";
+        Query query = entityManager.createNativeQuery(queryString);
+        query.setParameter(1, licId);
+        query.setParameter(2, policyId);
+        query.setParameter(3, fatherName);
+        query.setParameter(4, firstName);
+        query.setParameter(5, lastName);
+        query.setParameter(6, categoryNo);
+        query.setParameter(7, isActive);
+        query.setParameter(8, isZeroId);
+        query.executeUpdate();
     }
 
-    @Transactional
-    public void updateMemberFromPolicy(long licId, long policyId) {
-        policyRepository.updateMemberFromPolicy(licId, policyId, DEFAULT_MEMBER_STATUS, DEFAULT_CATEGORY_NO, DEFAULT_ACTIVE_STATUS, DEFAULT_ZERO_ID_STATUS);
-        System.out.println("Record successfully updated in Members table.");
+    public List<Policy> getAllPolicies() {
+        return policyRepository.findAll();
+    }
+
+    public Optional<Policy> getPolicyById(String policyId) {
+        return policyRepository.findById(policyId);
+    }
+
+    public void deletePolicyById(String policyId) {
+        policyRepository.deleteById(policyId);
+    }
+
+    public Policy createPolicy(Policy policy) {
+        return policyRepository.save(policy);
+    }
+
+    public Policy updatePolicy(Policy policy) {
+        return policyRepository.save(policy);
     }
 }
