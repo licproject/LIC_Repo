@@ -1,51 +1,56 @@
-package com.lic.package.entity;
+package com.lic.package.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="PMST_MPH")
+@Table(name = "PMST_MPH")
 public class PMST_MPH {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="mph_id")
-	private Long mphId;
-	
-	@Column(name="mph_code")
-	private String mphCode;
-	
-	@Column(name="mph_description")
-	private String mphDescription;
+    @Id
+    private Long id;
+    private String mphCode;
+    private String data1;
+    private String data2;
+    private String data3;
 
-	public Long getMphId() {
-		return mphId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setMphId(Long mphId) {
-		this.mphId = mphId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getMphCode() {
-		return mphCode;
-	}
+    public String getMphCode() {
+        return mphCode;
+    }
 
-	public void setMphCode(String mphCode) {
-		this.mphCode = mphCode;
-	}
+    public void setMphCode(String mphCode) {
+        this.mphCode = mphCode;
+    }
 
-	public String getMphDescription() {
-		return mphDescription;
-	}
+    public String getData1() {
+        return data1;
+    }
 
-	public void setMphDescription(String mphDescription) {
-		this.mphDescription = mphDescription;
-	}
-	
-	
+    public void setData1(String data1) {
+        this.data1 = data1;
+    }
 
+    public String getData2() {
+        return data2;
+    }
+
+    public void setData2(String data2) {
+        this.data2 = data2;
+    }
+
+    public String getData3() {
+        return data3;
+    }
+
+    public void setData3(String data3) {
+        this.data3 = data3;
+    }
 }
