@@ -1,43 +1,50 @@
 package com.lic.package.controller;
 
+import com.lic.package.entity.PolicyEntity;
+import com.lic.package.repository.PolicyRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lic.package.model.PMST_MPH;
-import com.lic.package.repository.PolicyRepository;
-import com.lic.package.service.PolicyService;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/policy")
 public class PolicyController {
 
-    @Autowired
-    private PolicyService policyService;
+    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyController.class);
+    private static final String DEFAULT_MEMBER_STATUS = "Active";
+    private static final String DEFAULT_CATEGORY_NO = "";
+    private static final boolean DEFAULT_ACTIVE_STATUS = true;
+    private static final boolean DEFAULT_ZERO_ID_STATUS = false;
 
-    @Autowired
     private PolicyRepository policyRepository;
 
-    @GetMapping("/get/{mphCode}")
-    public PMST_MPH getPolicyByMphCode(@PathVariable String mphCode) {
-        return policyService.findByMphCode(mphCode);
+    @Autowired
+    public PolicyController(PolicyRepository policyRepository) {
+        this.policyRepository = policyRepository;
     }
 
-    @PostMapping("/insert")
-    public void insertIntoMembers(@RequestBody PMST_MPH mph) {
-      String licId = mph.getLicId();
-      String policyId = mph.getPolicyId();
-      String fatherName = mph.getFatherName();
-      String firstName = mph.getName();
-      String lastName = mph.getMphCode();
-      String categoryNo = mph.getCategoryNo();
-      boolean isActive = mph.isActive();
-      boolean isZeroId = mph.isZeroId();
-
-      policyService.insertIntoMembers(licId, policyId, fatherName, firstName, lastName, categoryNo, isActive, isZeroId);
+    @GetMapping("/policy/findByMphCode")
+    public void findByMphCode(@RequestParam String mphCode) {
+        Optional<PolicyEntity> policyEntity = policyRepository.findByMphCode(mphCode);
+        policyEntity.ifPresentOrElse(
+                entity -> insertMemberFromPolicy(mphCode, entity.getLicId(), entity.getPolicyId()),
+                () -> LOGGER.info("No matching policy found for MPH code {}", mphCode));
     }
+
+    @GetMapping("/policy/update")
+    public void updateMemberFromPolicy(@RequestParam long licId, @RequestParam long policyId) {
+        policyRepository.updateMemberFromPolicy(licId, policyId, DEFAULT_MEMBER_STATUS, DEFAULT_CATEGORY_NO, DEFAULT_ACTIVE_STATUS, DEFAULT_ZERO_ID_STATUS);
+        LOGGER.info("Record successfully updated in Members table. LIC ID: {}, Policy ID: {}", licId, policyId);
+    }
+
+    @Transactional
+    private void insertMemberFromPolicy(String mphCode, long licId, long policyId) {
+        policyRepository.insertMemberFromPolicy(mphCode, DEFAULT_MEMBER_STATUS, DEFAULT_CATEGORY_NO, DEFAULT_ACTIVE_STATUS, DEFAULT_ZERO_ID_STATUS);
+        LOGGER.info("Record successfully inserted into Members table. MPH Code: {}, LIC ID: {}, Policy ID: {}", mphCode, licId, policyId);
+    }
+
 }
