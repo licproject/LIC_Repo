@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.lic.package</groupId>
-	<artifactId>LP1-14</artifactId>
+	<artifactId>LP1-15</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 	<name>LIC_Project_1</name>
