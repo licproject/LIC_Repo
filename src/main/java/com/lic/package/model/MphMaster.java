@@ -1,115 +1,48 @@
 package com.lic.package.model;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
-@Table(name = "MPH_MASTER")
+@Table(name = "mph_master")
 public class MphMaster {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long mphId;
+    private String alternatePAN;
+    private String cin;
+    private String countryCode;
 
-    private String name;
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public Long getMphId() {
+        return mphId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMphId(Long mphId) {
+        this.mphId = mphId;
     }
 
-    public String getName() {
-        return name;
+    public String getAlternatePAN() {
+        return alternatePAN;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-@Entity
-@Table(name = "MPH_BANK")
-public class MphBank {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public void setAlternatePAN(String alternatePAN) {
+        this.alternatePAN = alternatePAN;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getCin() {
+        return cin;
     }
 
-    public String getName() {
-        return name;
+    public void setCin(String cin) {
+        this.cin = cin;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-@Entity
-@Table(name = "MPH_REPRESENTATIVES")
-public class MphRepresentative {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
+    public String getCountryCode() {
+        return countryCode;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-}
-
-@Entity
-@Table(name = "MPH_ADDRESS")
-public class MphAddress {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    private String name;
-
-    // Getters and Setters
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
     }
 }
