@@ -1,89 +1,132 @@
+// Spring Boot Entity/Model class
 package com.lic.package.model;
 
 import javax.persistence.*;
-import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "PMST_MPH")
+@Table(name="PMST_MPH")
 public class PMST_MPH {
-
+   
     @Id
-    @GeneratedValue
-    @Column(name = "mph_id")
-    private Long mph_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PMST_MPH_ID")
+    private int pmstMphId;
 
-    @Column(name = "policy_number")
-    private String policy_number;
+    @Column(name = "MPH_CODE")
+    private String mphCode;
 
-    @Column(name = "start_date")
-    private Date start_date;
+    @Column(name = "LIC_ID")
+    private String licId;
 
-    @Column(name = "end_date")
-    private Date end_date;
+    @Column(name = "POLICY_ID")
+    private String policyId;
 
-    @OneToMany(mappedBy = "mph")
-    private List<PMST_MPH_BANK> banks;
+    @Column(name = "MEMBER_STATUS")
+    private String memberStatus;
 
-    @OneToMany(mappedBy = "mph")
-    private List<PMST_MPH_ADDRESS> addresses;
+    @Column(name = "FATHER_NAME")
+    private String fatherName;
 
-    @OneToMany(mappedBy = "mph")
-    private List<PMST_MPH_REPRESENTATIVES> representatives;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
 
-    public Long getMph_id() {
-        return mph_id;
+    @Column(name = "LAST_NAME")
+    private String lastName;
+
+    @Column(name = "CATEGORY_NO")
+    private String categoryNo;
+
+    @Column(name = "IS_ACTIVE")
+    private boolean isActive;
+
+    @Column(name = "IS_ZERO_ID")
+    private boolean isZeroId;
+
+    public int getPmstMphId() {
+        return pmstMphId;
     }
 
-    public void setMph_id(Long mph_id) {
-        this.mph_id = mph_id;
+    public void setPmstMphId(int pmstMphId) {
+        this.pmstMphId = pmstMphId;
     }
 
-    public String getPolicy_number() {
-        return policy_number;
+    public String getMphCode() {
+        return mphCode;
     }
 
-    public void setPolicy_number(String policy_number) {
-        this.policy_number = policy_number;
+    public void setMphCode(String mphCode) {
+        this.mphCode = mphCode;
     }
 
-    public Date getStart_date() {
-        return start_date;
+    public String getLicId() {
+        return licId;
     }
 
-    public void setStart_date(Date start_date) {
-        this.start_date = start_date;
+    public void setLicId(String licId) {
+        this.licId = licId;
     }
 
-    public Date getEnd_date() {
-        return end_date;
+    public String getPolicyId() {
+        return policyId;
     }
 
-    public void setEnd_date(Date end_date) {
-        this.end_date = end_date;
+    public void setPolicyId(String policyId) {
+        this.policyId = policyId;
     }
 
-    public List<PMST_MPH_BANK> getBanks() {
-        return banks;
+    public String getMemberStatus() {
+        return memberStatus;
     }
 
-    public void setBanks(List<PMST_MPH_BANK> banks) {
-        this.banks = banks;
+    public void setMemberStatus(String memberStatus) {
+        this.memberStatus = memberStatus;
     }
 
-    public List<PMST_MPH_ADDRESS> getAddresses() {
-        return addresses;
+    public String getFatherName() {
+        return fatherName;
     }
 
-    public void setAddresses(List<PMST_MPH_ADDRESS> addresses) {
-        this.addresses = addresses;
+    public void setFatherName(String fatherName) {
+        this.fatherName = fatherName;
     }
 
-    public List<PMST_MPH_REPRESENTATIVES> getRepresentatives() {
-        return representatives;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setRepresentatives(List<PMST_MPH_REPRESENTATIVES> representatives) {
-        this.representatives = representatives;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getCategoryNo() {
+        return categoryNo;
+    }
+
+    public void setCategoryNo(String categoryNo) {
+        this.categoryNo = categoryNo;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+
+    public boolean isZeroId() {
+        return isZeroId;
+    }
+
+    public void setZeroId(boolean zeroId) {
+        isZeroId = zeroId;
     }
 }

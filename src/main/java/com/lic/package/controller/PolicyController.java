@@ -1,45 +1,43 @@
 package com.lic.package.controller;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.lic.package.model.PMST_MPH;
-import com.lic.package.service.PolicyRepository;
+import com.lic.package.repository.PolicyRepository;
 import com.lic.package.service.PolicyService;
 
 @RestController
+@RequestMapping("/api/v1/policy")
 public class PolicyController {
 
-	@Autowired
-	private PolicyService policyService;
+    @Autowired
+    private PolicyService policyService;
 
-	@Autowired
-	private PolicyRepository policyRepository;
+    @Autowired
+    private PolicyRepository policyRepository;
 
-	@GetMapping("/policyDetails/mphId")
-	public List<Object[]> getPolicyDetailsByMphId(@RequestParam("mph_id") Long mph_id) {
-		return policyService.getPolicyDetailsByMphId(mph_id);
-	}
+    @GetMapping("/get/{mphCode}")
+    public PMST_MPH getPolicyByMphCode(@PathVariable String mphCode) {
+        return policyService.findByMphCode(mphCode);
+    }
 
-	@GetMapping("/policyDetails/mphIds")
-	public List<Object[]> getPolicyDetailsByMphIds(@RequestParam("mph_ids") List<Long> mph_ids) {
-		return policyService.getPolicyDetailsByMphIds(mph_ids);
-	}
+    @PostMapping("/insert")
+    public void insertIntoMembers(@RequestBody PMST_MPH mph) {
+      String licId = mph.getLicId();
+      String policyId = mph.getPolicyId();
+      String fatherName = mph.getFatherName();
+      String firstName = mph.getName();
+      String lastName = mph.getMphCode();
+      String categoryNo = mph.getCategoryNo();
+      boolean isActive = mph.isActive();
+      boolean isZeroId = mph.isZeroId();
 
-	@GetMapping("/policyDetails/policyNumber")
-	public List<Object[]> getPolicyDetailsByPolicyNumber(@RequestParam("policy_number") String policy_number) {
-		return policyService.getPolicyDetailsByPolicyNumber(policy_number);
-	}
-
-	@GetMapping("/policyDetails/dateRange")
-	public List<Object[]> getPolicyDetailsByDateRange(@RequestParam("start_date") Date start_date,
-			@RequestParam("end_date") Date end_date) {
-		return policyService.getPolicyDetailsByDateRange(start_date, end_date);
-	}
-
+      policyService.insertIntoMembers(licId, policyId, fatherName, firstName, lastName, categoryNo, isActive, isZeroId);
+    }
 }
