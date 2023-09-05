@@ -1,17 +1,15 @@
-package com.lic.package.repository;
-
 import com.lic.package.dto.MphMasterDto;
+import com.lic.package.dto.MphMasterTempEntity;
 import com.lic.package.dto.PolicyDto;
 import com.lic.package.dto.PolicyFrequencyDetailsDto;
 import com.lic.package.dto.PolicyResponseDto;
-import com.lic.package.entity.MphMasterTempEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PolicyRepository extends JpaRepository<MphMasterTempEntity, Long> {
-
+@Repository
+public interface PolicyRepository {
+ 
     PolicyResponseDto savePolicyDetails(PolicyDto policyDto);
-
-    PolicyResponseDto convertQutationMemberToPolicyMember(long mphId, PolicyDto policyDto, String variantType);
-
-    PolicyFrequencyDetailsDto getFrequencyDates(PolicyFrequencyDetailsDto policyFrequencyDetailsDto);
+    
+    MphMasterDto convertQutationMemberToPolicyMember(Long mphId, PolicyDto policyDto, String variantType);
+ 
+    void getFrequencyDates(PolicyFrequencyDetailsDto frequencyDto);
 }
