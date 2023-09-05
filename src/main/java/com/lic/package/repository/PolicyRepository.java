@@ -1,14 +1,17 @@
+package com.lic.package.repository;
+
+import com.lic.package.dto.MphMasterDto;
+import com.lic.package.dto.PolicyDto;
+import com.lic.package.dto.PolicyFrequencyDetailsDto;
+import com.lic.package.dto.PolicyResponseDto;
+import com.lic.package.entity.MphMasterTempEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
-import com.lic.package.repository.PMST_MPH;
-import com.lic.package.repository.Members;
+public interface PolicyRepository extends JpaRepository<MphMasterTempEntity, Long> {
 
-public interface PolicyRepository extends JpaRepository<PMST_MPH, Long> {
-    @Query("SELECT pmstMph from PMST_MPH pmstMph WHERE pmstMph.mphCode = :mphCode")
-    PMST_MPH getByMphCode(@Param("mphCode") String mphCode);
-  
-    @Query("INSERT INTO Members(mphCode, data1, data2, data3) SELECT mphCode, data1, data2, data3 FROM PMST_MPH WHERE mphCode = :mphCode")
-    void insertPolicyDataIntoMembers(@Param("mphCode") String mphCode);
+    PolicyResponseDto savePolicyDetails(PolicyDto policyDto);
+
+    PolicyResponseDto convertQutationMemberToPolicyMember(long mphId, PolicyDto policyDto, String variantType);
+
+    PolicyFrequencyDetailsDto getFrequencyDates(PolicyFrequencyDetailsDto policyFrequencyDetailsDto);
 }
