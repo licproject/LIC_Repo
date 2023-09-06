@@ -1,85 +1,69 @@
 package com.lic.package.service;
 
+import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.transaction.Transactional;
 
-import com.lic.package.model.MphMaster;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.lic.package.constants.PolicyConstants;
+import com.lic.package.dto.FrequencyDetails;
+import com.lic.package.dto.MemberDetails;
+import com.lic.package.dto.MphMasterDto;
+import com.lic.package.entity.MphMasterTempEntity;
 import com.lic.package.repository.MphMasterRepository;
+import com.lic.package.repository.QuotationRepository;
 
-@Service
 public class MphMasterService {
- 
-    @Autowired
-    private MphMasterRepository mphMasterRepository;
- 
-    public List<MphMaster> getAllMphMaster(){
-        return mphMasterRepository.findAll();
+    
+    private final MphMasterRepository mphMasterRepository;
+    private final QuotationRepository quotationRepository;
+    
+    public MphMasterService(MphMasterRepository mphMasterRepository, QuotationRepository quotationRepository) {
+        this.mphMasterRepository = mphMasterRepository;
+        this.quotationRepository = quotationRepository;
     }
- 
-    public Optional<MphMaster> getMphMasterById(Long mphId){
-        return mphMasterRepository.findById(mphId);
-    }
- 
-    public MphMaster getMphMasterByAlternatePAN(String alternatePAN){
-        return mphMasterRepository.findByAlternatePAN(alternatePAN);
-    }
- 
-    public MphMaster getMphMasterByCin(String cin){
-        return mphMasterRepository.findByCin(cin);
-    }
- 
-    public MphMaster getMphMasterByCountryCode(String countryCode){
-        return mphMasterRepository.findByCountryCode(countryCode);
-    }
- 
-    public List<MphMaster> getMphMasterNotInTempMaster(){
-        return mphMasterRepository.findMphIdNotInTempMaster();
-    }
- 
-    public List<MphMaster> getMphMasterNotInTempBank(){
-        return mphMasterRepository.findMphIdNotInTempBank();
-    }
- 
-    public List<MphMaster> getMphMasterNotInTempRepresentatives(){
-        return mphMasterRepository.findMphIdNotInTempRepresentatives();
-    }
- 
-    public List<MphMaster> getMphMasterNotInTempAddress(){
-        return mphMasterRepository.findMphIdNotInTempAddress();
-    }
- 
-    public List<MphMaster> getMphMasterInTempMaster(){
-        return mphMasterRepository.findMphIdInTempMaster();
-    }
- 
-    public List<MphMaster> getMphMasterInTempBank(){
-        return mphMasterRepository.findMphIdInTempBank();
-    }
- 
-    public List<MphMaster> getMphMasterInTempRepresentatives(){
-        return mphMasterRepository.findMphIdInTempRepresentatives();
-    }
- 
-    public List<MphMaster> getMphMasterInTempAddress(){
-        return mphMasterRepository.findMphIdInTempAddress();
-    }
- 
-    public MphMaster addMphMaster(MphMaster mphMaster){
-        return mphMasterRepository.save(mphMaster);
-    }
- 
-    public MphMaster updateMphMaster(MphMaster mphMaster){
-        return mphMasterRepository.save(mphMaster);
-    }
- 
-    public void deleteMphMaster(MphMaster mphMaster){
-        mphMasterRepository.delete(mphMaster);
-    }
- 
-    public void deleteMphMasterById(Long mphId){
-        mphMasterRepository.deleteById(mphId);
+    
+    public MphMasterDto savePolicyDetails(MphMasterDto policyDto) throws ParseException {
+        if (policyDto.getQuotationId() == null) {
+            policyDto.setTransactionMessage(PolicyConstants.QUOTATION_NUMBER_EMPTY);
+            policyDto.setTransactionStatus(PolicyConstants.FAIL);
+            return policyDto;
+        }
+        
+        if (quotationRepository.findByQuotationIdAndStatusAndActive(policyDto.getQuotationId(), PolicyConstants.QUOTATION_STATUS, PolicyConstants.ACTIVE) == null) {
+            policyDto.setTransactionMessage(PolicyConstants.QUOTATION_INVALID);
+            policyDto.setTransactionStatus(PolicyConstants.FAIL);
+            return policyDto;
+        }
+        
+        MphMasterTempEntity mphTempEntity = new MphMasterTempEntity();
+        mphTempEntity.setQuotationId(policyDto.getQuotationId());
+        
+        if (policyDto.getPolicyId() == null) {
+            // convert old request to new and save the resulting MphMasterTempEntity into the repository
+            mphMasterRepository.save(mphTempEntity);
+        } else {
+            // fetch existing policy and member details and save the edited MphMasterTempEntity
+            mphTempEntity = mphMasterRepository.findByPolicyId(policyDto.getPolicyId());
+            mphMasterRepository.updateMemberDetails(policyDto.getMemberDetails(), policyDto.getPolicyId());
+        }
+        
+        // convert and save the quotation member details into the policy member details
+        mphTempEntity.setMemberDetails(policyDto.getMemberDetails());
+        
+        // for each PolicyMasterTempEntity, populate a new PolicyFrequencyDetailsDto and call getFrequencyDates() method for each
+        mphTempEntity.setFrequencyDates(policyDto.getFrequencyDates());
+        mphMasterRepository.save(mphTempEntity);
+        
+        // populate response.setMphId(mphTempEntity.getMphId());
+        policyDto.setMphId(mphTempEntity.getMphId());
+        policyDto.setTransactionMessage(PolicyConstants.SAVEMESSAGE);
+        policyDto.setTransactionStatus(PolicyConstants.SUCCESS);
+        
+        return policyDto;
     }
 }
