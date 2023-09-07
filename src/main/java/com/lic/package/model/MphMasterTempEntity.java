@@ -1,11 +1,7 @@
 package com.lic.package.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "mph_master_temp")
@@ -13,21 +9,33 @@ public class MphMasterTempEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+    @Column(name = "mph_master_temp_id")
+    private Long mphMasterTempId;
 
     @Column(name = "quotation_id")
     private Long quotationId;
 
-    @Column(name = "active")
-    private Integer active;
+    @Column(name = "policy_id")
+    private Long policyId;
 
-    public Long getId() {
-        return id;
+    @Column(name = "mph_id")
+    private Long mphId;
+
+    @Column(name = "frequency")
+    private String frequency;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
+    @Column(name = "modified_date")
+    private Date modifiedDate;
+
+    public Long getMphMasterTempId() {
+        return mphMasterTempId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMphMasterTempId(Long mphMasterTempId) {
+        this.mphMasterTempId = mphMasterTempId;
     }
 
     public Long getQuotationId() {
@@ -38,12 +46,44 @@ public class MphMasterTempEntity {
         this.quotationId = quotationId;
     }
 
-    public Integer getActive() {
-        return active;
+    public Long getPolicyId() {
+        return policyId;
     }
 
-    public void setActive(Integer active) {
-        this.active = active;
+    public void setPolicyId(Long policyId) {
+        this.policyId = policyId;
+    }
+
+    public Long getMphId() {
+        return mphId;
+    }
+
+    public void setMphId(Long mphId) {
+        this.mphId = mphId;
+    }
+
+    public String getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(String frequency) {
+        this.frequency = frequency;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
 }

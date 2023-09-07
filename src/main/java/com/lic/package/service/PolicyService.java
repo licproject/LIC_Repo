@@ -1,58 +1,85 @@
-package com.lic.package.service;
+Solution: package com.lic.package.service;
 
 import com.lic.package.dto.MphMasterDto;
 import com.lic.package.dto.PolicyDto;
 import com.lic.package.dto.PolicyFrequencyDetailsDto;
-import com.lic.package.dto.PolicyResponseDto;
+import com.lic.package.dto.ResponseDto;
 import com.lic.package.entity.MphMasterTempEntity;
-import com.lic.package.entity.QuotationEntity;
 import com.lic.package.repository.PolicyRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 public class PolicyService {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyService.class);
+    @Autowired
+    PolicyRepository policyRepository;
 
     @Autowired
-    private PolicyRepository policyRepository;
+    PolicyCommonServiceImpl policyCommonServiceImpl;
 
-    public PolicyResponseDto savePolicyDetails(PolicyDto policyDto) {
-        LOGGER.info("Started savePolicyDetails process");
-        PolicyResponseDto responseDto = new PolicyResponseDto();
+    public ResponseDto saveOrUpdatePolicyDetails(PolicyDto policyDto) {
+        ResponseDto responseDto = new ResponseDto();
+
+        // Validate Quotation ID
         if (policyDto.getQuotationId() == null) {
-            responseDto.setTransactionMessage("Quotation number is empty.");
-            responseDto.setTransactionStatus("Fail");
+            responseDto.setTransactionMessage("QUOTATION_NUMBER_EMPTY");
+            responseDto.setTransactionStatus("FAIL");
             return responseDto;
         }
-        QuotationEntity quotationEntity = policyRepository.findByQuotationId(policyDto.getQuotationId(), "Approved: No");
-        if (quotationEntity == null) {
-            responseDto.setTransactionMessage("Quotation is invalid.");
-            responseDto.setTransactionStatus("Fail");
+        MphMasterTempEntity mphTempEntity = policyRepository.findByQuotationId(policyDto.getQuotationId());
+        if (mphTempEntity == null) {
+            responseDto.setTransactionMessage("QUOTATION_INVALID");
+            responseDto.setTransactionStatus("FAIL");
             return responseDto;
         }
-        if (policyDto.getPolicyId() == null) {
+
+        // Handle Policy ID
+        if (policyDto.getPolicyId() == null) { // Create a new MphMasterTempEntity
             MphMasterDto mphMasterDto = policyCommonServiceImpl.convertOldRequestToNewRequest(policyDto);
-            MphMasterTempEntity savedEntity = policyRepository.save(mphMasterDto);
-            if (savedEntity.getMphId() != null) {
-                policyCommonServiceImpl.convertQutationMemberToPolicyMember(savedEntity.getMphId(), policyDto, variantType);
+            mphTempEntity = policyRepository.save(new MphMasterTempEntity(mphMasterDto));
+            if (mphTempEntity == null) {
+                responseDto.setTransactionMessage("SAVE_ERROR");
+                responseDto.setTransactionStatus("FAIL");
+                return responseDto;
             }
-        } else {
-            // Retrieve relevant data from the respective tables
-            MphMasterDto mphMasterDto = policyCommonServiceImpl.convertEditRequestToNewRequest(policyDto);
-            MphMasterTempEntity savedEntity = policyRepository.save(mphMasterDto);
-            // For each PolicyMasterTempEntity associated with the mphTempEntity
-            PolicyFrequencyDetailsDto frequencyDetailsDto = new PolicyFrequencyDetailsDto();
-            frequencyDetailsDto.setPolicyId(savedEntity.getPolicyId());
-            frequencyDetailsDto.setFrequency(savedEntity.getContributionFrequency().toString());
-            policyRepository.getFrequencyDates(frequencyDetailsDto);
+            // Convert Quotation Members to Policy Members
+            policyCommonServiceImpl.convertQutationMemberToPolicyMember(mphTempEntity.getMphId(), policyDto);
+        } else { // Update existing MphMasterTempEntity
+            mphTempEntity = policyRepository.findByPolicyId(policyDto.getPolicyId());
+            MphMasterDto mphMasterDto = policyCommonServiceImpl.convertOldRequestToNewRequest(policyDto, mphTempEntity);
+            mphTempEntity.setMphMasterDto(mphMasterDto);
+            mphTempEntity = policyRepository.save(mphTempEntity);
+            if (mphTempEntity == null) {
+                responseDto.setTransactionMessage("UPDATE_ERROR");
+                responseDto.setTransactionStatus("FAIL");
+                return responseDto;
+            }
         }
-        responseDto.setMphId(savedEntity.getMphId());
-        responseDto.setTransactionMessage("Policy details saved successfully.");
-        responseDto.setTransactionStatus("Success");
+
+        // Handle Policy Frequency Details
+        List<PolicyFrequencyDetailsDto> policyFrequencyDetailsDtoList = policyDto.getPolicyMaster();
+        for (PolicyFrequencyDetailsDto pfd : policyFrequencyDetailsDtoList) {
+            int updateStatus = policyRepository.updateFrequency(pfd.getFrequency(), mphTempEntity.getPolicyId());
+            if (updateStatus == 0) {
+                responseDto.setTransactionMessage("UPDATE_ERROR");
+                responseDto.setTransactionStatus("FAIL");
+                return responseDto;
+            }
+            List<String> frequencyDates = policyCommonServiceImpl.getFrequencyDates(pfd);
+        }
+
+        // Return Response
+        responseDto.setMphId(mphTempEntity.getMphId());
+        responseDto.setTransactionMessage("SAVE_MESSAGE");
+        responseDto.setTransactionStatus("SUCCESS");
         return responseDto;
+    }
+
+    public List<PolicyFrequencyDetailsDto> getFrequencyDetails(Long policyId) {
+        return policyRepository.getFrequencyDetails(policyId);
     }
 }
