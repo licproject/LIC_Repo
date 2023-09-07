@@ -1,25 +1,49 @@
+package com.lic.package.model;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 @Entity
 @Table(name = "mph_master_temp")
 public class MphMasterTempEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "mph_id")
-    private Long mphId;
+    @Column(name = "id")
+    private Long id;
 
     @Column(name = "quotation_id")
-    private String quotationId;
+    private Long quotationId;
 
-    @Column(name = "policy_id")
-    private String policyId;
+    @Column(name = "active")
+    private Integer active;
 
-    @Column(name = "member_details")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberDetails> memberDetails;
+    public Long getId() {
+        return id;
+    }
 
-    @Column(name = "frequency_dates")
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<FrequencyDetails> frequencyDates;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-    // getters and setters
+    public Long getQuotationId() {
+        return quotationId;
+    }
+
+    public void setQuotationId(Long quotationId) {
+        this.quotationId = quotationId;
+    }
+
+    public Integer getActive() {
+        return active;
+    }
+
+    public void setActive(Integer active) {
+        this.active = active;
+    }
+
 }
