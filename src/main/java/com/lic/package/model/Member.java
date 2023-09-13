@@ -1,114 +1,65 @@
+NO = :categoryNo, COMMUNICATION_PREFERENCE = :communicationPreference, DATE_OF_BIRTH = :dateOfBirth, DATE_OF_JOINING = :dateOfJoining, DATE_OF_JOINING_SCHEME = :dateOfJoiningScheme, DATE_OF_RETIREMENT = :dateOfRetirement, DESIGNATION = :designation, EMAILID = :emailId, FATHER_NAME = :fatherName, FIRST_NAME = :firstName, GENDER = :gender, IS_ACTIVE = :isActive, IS_ZEROID = :isZeroId, LANDLINE_NO = :landlineNo, LANGUAGE_PREFERENCE = :languagePreference, LAST_NAME = :lastName, LIC_ID = :licId, MARITAL_STATUS = :maritalStatus, MEMBER_PAN = :memberPan, MEMBER_STATUS = :memberStatus, MEMBERSHIP_NUMBER = :membershipNumber, MIDDLE_NAME = :middleName, MOBILE_NO = :mobileNo WHERE MEMBER_ID = :memberId", nativeQuery = true)
+public void updateMemberDetails(@Param("memberId") String memberId, 
+							@Param("aadharNumber") String aadharNumber,
+							@Param("categoryNo") String categoryNo,
+							@Param("communicationPreference") String communicationPreference,
+							@Param("dateOfBirth") Long dateOfBirth,
+							@Param("dateOfJoining") Long dateOfJoining,
+							@Param("dateOfJoiningScheme") Long dateOfJoiningScheme,
+							@Param("dateOfRetirement") Long dateOfRetirement,
+							@Param("designation") String designation,
+							@Param("emailId") String emailId,
+							@Param("fatherName") String fatherName,
+							@Param("firstName") String firstName,
+							@Param("gender") String gender,
+							@Param("isActive") String isActive,
+							@Param("isZeroId") String isZeroId,
+							@Param("landlineNo") String landlineNo,
+							@Param("languagePreference") String languagePreference,
+							@Param("lastName") String lastName,
+							@Param("licId") String licId,
+							@Param("maritalStatus") String maritalStatus,
+							@Param("memberPan") String memberPan,
+							@Param("memberStatus") String memberStatus,
+							@Param("membershipNumber") String membershipNumber,
+							@Param("middleName") String middleName,
+							@Param("mobileNo") String mobileNo);
+}
+
+/**
+ * Package: com.lic.package.model
+ */
 package com.lic.package.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="POLICY_SRV_MBR")
 public class Member {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int memberId;
-	
-	private String categoryNo;
-	private String communicationPreference;
-	private String dateOfBirth;
-	private String dateOfJoining;
-	private String dateOfJoiningScheme;
-	private String dateOfRetirement;
-	private String designation;
-	private String emailId;
-	private String fatherName;
-	private String firstName;
-	private String gender;
-	private String isActive;
-	private String isZeroId;
-	private String landlineNo;
-	private String languagePreference;
-	private String lastName;
-	private String licId;
-	private String maritalStatus;
-	private String memberPan;
-	private String memberStatus;
-	private String membershipNumber;
-	private String middleName;
-	private String mobileNo;
-	private String policyId;
-	private String spouseName;
-	private String typeOfMembership;
-	private String aadharNumber;
-	
-	public Member() {}
-	
-	public Member(int memberId, String categoryNo, String communicationPreference, String dateOfBirth,
-			String dateOfJoining, String dateOfJoiningScheme, String dateOfRetirement, String designation,
-			String emailId, String fatherName, String firstName, String gender, String isActive, String isZeroId,
-			String landlineNo, String languagePreference, String lastName, String licId, String maritalStatus,
-			String memberPan, String memberStatus, String membershipNumber, String middleName, String mobileNo,
-			String policyId, String spouseName, String typeOfMembership, String aadharNumber) {
-		this.memberId = memberId;
-		this.categoryNo = categoryNo;
-		this.communicationPreference = communicationPreference;
-		this.dateOfBirth = dateOfBirth;
-		this.dateOfJoining = dateOfJoining;
-		this.dateOfJoiningScheme = dateOfJoiningScheme;
-		this.dateOfRetirement = dateOfRetirement;
-		this.designation = designation;
-		this.emailId = emailId;
-		this.fatherName = fatherName;
-		this.firstName = firstName;
-		this.gender = gender;
-		this.isActive = isActive;
-		this.isZeroId = isZeroId;
-		this.landlineNo = landlineNo;
-		this.languagePreference = languagePreference;
-		this.lastName = lastName;
-		this.licId = licId;
-		this.maritalStatus = maritalStatus;
-		this.memberPan = memberPan;
-		this.memberStatus = memberStatus;
-		this.membershipNumber = membershipNumber;
-		this.middleName = middleName;
-		this.mobileNo = mobileNo;
-		this.policyId = policyId;
-		this.spouseName = spouseName;
-		this.typeOfMembership = typeOfMembership;
-		this.aadharNumber = aadharNumber;
-	}
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Column(name="MEMBER_ID")
+    private String memberId;
 
-	public int getMemberId() {
-		return memberId;
-	}
+    @Column(name="AADHAR_NUMBER")
+    private String aadharNumber;
 
-	public String getCategoryNo() {
-		return categoryNo;
-	}
+    @Column(name="CATEGORY_NO")
+    private String categoryNo;
 
-	public void setCategoryNo(String categoryNo) {
-		this.categoryNo = categoryNo;
-	}
+    @Column(name="COMMUNICATION_PREFERENCE")
+    private String communicationPreference;
+    
+    @Column(name="CREATED_BY")
+    private String createdBy;
 
-	public String getCommunicationPreference() {
-		return communicationPreference;
-	}
+    @Column(name="CREATED_ON")
+    private Long createdOn;
 
-	public void setCommunicationPreference(String communicationPreference) {
-		this.communicationPreference = communicationPreference;
-	}
-
-	public String getDateOfBirth() {
-		return dateOfBirth;
-	}
-
-	public void setDateOfBirth(String dateOfBirth) {
-		this.dateOfBirth = dateOfBirth;
-	}
-
-	public String getDateOfJoining() {
-		return dateOfJoining;
-	}
-
-	public void setDateOfJoining(String dateOfJoining) {
-		
+    @Column
