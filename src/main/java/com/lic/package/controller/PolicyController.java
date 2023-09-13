@@ -1,51 +1,65 @@
 package com.lic.package.controller;
 
-import com.lic.package.dto.PolicyDto;
-import com.lic.package.dto.PolicyFrequencyDetailsDto;
-import com.lic.package.dto.ResponseDto;
-import com.lic.package.service.PolicyCommonServiceImpl;
-import com.lic.package.service.PolicyService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.lic.package.service.PolicyService;
 
 @RestController
-@RequestMapping("/policies")
 public class PolicyController {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(PolicyController.class);
 
     @Autowired
     PolicyService policyService;
 
-    @Autowired
-    PolicyCommonServiceImpl policyCommonServiceImpl;
-
-    @PostMapping
-    public ResponseEntity<ResponseDto> saveOrUpdatePolicyDetails(@RequestBody PolicyDto policyDto) {
-        ResponseDto responseDto = new ResponseDto();
-        try {
-            responseDto = policyService.saveOrUpdatePolicyDetails(policyDto);
-        } catch (Exception e) {
-            LOGGER.error("Error in saving or updating policy details : " + e.getMessage(), e);
-            responseDto.setTransactionMessage("SAVE_ERROR");
-            responseDto.setTransactionStatus("FAIL");
-        }
-        return ResponseEntity.ok(responseDto);
+    // Save data in the POLICY_SRV_MBR table
+    @PostMapping("/saveMemberData")
+    public void saveMemberData(@RequestBody Object data) {
+        policyService.saveMemberData(data);
     }
 
-    @GetMapping("/{policyId}")
-    public ResponseEntity<List<PolicyFrequencyDetailsDto>> getFrequencyDetails(@PathVariable Long policyId) {
-        List<PolicyFrequencyDetailsDto> policyFrequencyDetailsDtoList = null;
-        try {
-            policyFrequencyDetailsDtoList = policyService.getFrequencyDetails(policyId);
-        } catch (Exception e) {
-            LOGGER.error("Error in getting frequency details : " + e.getMessage(), e);
-        }
-        return ResponseEntity.ok(policyFrequencyDetailsDtoList);
+    // Save data in the POLICY_SRV_MBR_ADRS table
+    @PostMapping("/saveMemberAddressData")
+    public void saveMemberAddressData(@RequestBody Object data) {
+        policyService.saveMemberAddressData(data);
     }
+
+    // Save data in the POLICY_SRV_MBR_BANK table
+    @PostMapping("/saveMemberBankData")
+    public void saveMemberBankData(@RequestBody Object data) {
+        policyService.saveMemberBankData(data);
+    }
+
+    // Save data in the POLICY_SRV_MBR_NOMI table
+    @PostMapping("/saveMemberNomiData")
+    public void saveMemberNomiData(@RequestBody Object data) {
+        policyService.saveMemberNomiData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR table
+    @PutMapping("/updateMemberData")
+    public void updateMemberData(@RequestBody Object data) {
+        policyService.updateMemberData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR_ADRS table
+    @PutMapping("/updateMemberAddressData")
+    public void updateMemberAddressData(@RequestBody Object data) {
+        policyService.updateMemberAddressData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR_BANK table
+    @PutMapping("/updateMemberBankData")
+    public void updateMemberBankData(@RequestBody Object data) {
+        policyService.updateMemberBankData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR_NOMI table
+    @PutMapping("/updateMemberNomiData")
+    public void updateMemberNomiData(@RequestBody Object data) {
+        policyService.updateMemberNomiData(data);
+    }
+
 }

@@ -1,85 +1,54 @@
-Solution: package com.lic.package.service;
+package com.lic.package.service;
 
-import com.lic.package.dto.MphMasterDto;
-import com.lic.package.dto.PolicyDto;
-import com.lic.package.dto.PolicyFrequencyDetailsDto;
-import com.lic.package.dto.ResponseDto;
-import com.lic.package.entity.MphMasterTempEntity;
-import com.lic.package.repository.PolicyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.util.List;
+import com.lic.package.repository.PolicyServiceRepository;
 
 @Service
 public class PolicyService {
 
     @Autowired
-    PolicyRepository policyRepository;
+    PolicyServiceRepository policyServiceRepository;
 
-    @Autowired
-    PolicyCommonServiceImpl policyCommonServiceImpl;
-
-    public ResponseDto saveOrUpdatePolicyDetails(PolicyDto policyDto) {
-        ResponseDto responseDto = new ResponseDto();
-
-        // Validate Quotation ID
-        if (policyDto.getQuotationId() == null) {
-            responseDto.setTransactionMessage("QUOTATION_NUMBER_EMPTY");
-            responseDto.setTransactionStatus("FAIL");
-            return responseDto;
-        }
-        MphMasterTempEntity mphTempEntity = policyRepository.findByQuotationId(policyDto.getQuotationId());
-        if (mphTempEntity == null) {
-            responseDto.setTransactionMessage("QUOTATION_INVALID");
-            responseDto.setTransactionStatus("FAIL");
-            return responseDto;
-        }
-
-        // Handle Policy ID
-        if (policyDto.getPolicyId() == null) { // Create a new MphMasterTempEntity
-            MphMasterDto mphMasterDto = policyCommonServiceImpl.convertOldRequestToNewRequest(policyDto);
-            mphTempEntity = policyRepository.save(new MphMasterTempEntity(mphMasterDto));
-            if (mphTempEntity == null) {
-                responseDto.setTransactionMessage("SAVE_ERROR");
-                responseDto.setTransactionStatus("FAIL");
-                return responseDto;
-            }
-            // Convert Quotation Members to Policy Members
-            policyCommonServiceImpl.convertQutationMemberToPolicyMember(mphTempEntity.getMphId(), policyDto);
-        } else { // Update existing MphMasterTempEntity
-            mphTempEntity = policyRepository.findByPolicyId(policyDto.getPolicyId());
-            MphMasterDto mphMasterDto = policyCommonServiceImpl.convertOldRequestToNewRequest(policyDto, mphTempEntity);
-            mphTempEntity.setMphMasterDto(mphMasterDto);
-            mphTempEntity = policyRepository.save(mphTempEntity);
-            if (mphTempEntity == null) {
-                responseDto.setTransactionMessage("UPDATE_ERROR");
-                responseDto.setTransactionStatus("FAIL");
-                return responseDto;
-            }
-        }
-
-        // Handle Policy Frequency Details
-        List<PolicyFrequencyDetailsDto> policyFrequencyDetailsDtoList = policyDto.getPolicyMaster();
-        for (PolicyFrequencyDetailsDto pfd : policyFrequencyDetailsDtoList) {
-            int updateStatus = policyRepository.updateFrequency(pfd.getFrequency(), mphTempEntity.getPolicyId());
-            if (updateStatus == 0) {
-                responseDto.setTransactionMessage("UPDATE_ERROR");
-                responseDto.setTransactionStatus("FAIL");
-                return responseDto;
-            }
-            List<String> frequencyDates = policyCommonServiceImpl.getFrequencyDates(pfd);
-        }
-
-        // Return Response
-        responseDto.setMphId(mphTempEntity.getMphId());
-        responseDto.setTransactionMessage("SAVE_MESSAGE");
-        responseDto.setTransactionStatus("SUCCESS");
-        return responseDto;
+    // Save data in the POLICY_SRV_MBR table
+    public void saveMemberData(Object data) {
+        policyServiceRepository.saveMemberData(data);
     }
 
-    public List<PolicyFrequencyDetailsDto> getFrequencyDetails(Long policyId) {
-        return policyRepository.getFrequencyDetails(policyId);
+    // Save data in the POLICY_SRV_MBR_ADRS table
+    public void saveMemberAddressData(Object data) {
+        policyServiceRepository.saveMemberAddressData(data);
     }
+
+    // Save data in the POLICY_SRV_MBR_BANK table
+    public void saveMemberBankData(Object data) {
+        policyServiceRepository.saveMemberBankData(data);
+    }
+
+    // Save data in the POLICY_SRV_MBR_NOMI table
+    public void saveMemberNomiData(Object data) {
+        policyServiceRepository.saveMemberNomiData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR table
+    public void updateMemberData(Object data) {
+        policyServiceRepository.updateMemberData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR_ADRS table
+    public void updateMemberAddressData(Object data) {
+        policyServiceRepository.updateMemberAddressData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR_BANK table
+    public void updateMemberBankData(Object data) {
+        policyServiceRepository.updateMemberBankData(data);
+    }
+
+    // Update data in the POLICY_SRV_MBR_NOMI table
+    public void updateMemberNomiData(Object data) {
+        policyServiceRepository.updateMemberNomiData(data);
+    }
+
 }
