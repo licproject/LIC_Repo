@@ -1,0 +1,17 @@
+DATE_OF_BIRTH, tgt.DATE_OF_JOINING = src.DATE_OF_JOINING, " +
+                   "tgt.DATE_OF_JOINING_SCHEME = src.DATE_OF_JOINING_SCHEME, tgt.DATE_OF_RETRIREMENT = src.DATE_OF_RETRIREMENT, tgt.DESIGNATION = src.DESIGNATION, " +
+                   "tgt.EMAILID = src.EMAILID, tgt.FATHER_NAME = src.FATHER_NAME, tgt.FIRST_NAME = src.FIRST_NAME, tgt.GENDER = src.GENDER, " +
+                   "tgt.IS_ACTIVE = src.IS_ACTIVE, tgt.IS_ZEROID = src.IS_ZEROID, tgt.LANDLINE_NO = src.LANDLINE_NO, tgt.LANGUAGE_PREFERENCE = src.LANGUAGE_PREFERENCE, " +
+                   "tgt.LAST_NAME = src.LAST_NAME, tgt.LIC_ID = src.LIC_ID, tgt.MARITAL_STATUS = src.MARITAL_STATUS, tgt.MEMBER_ADDITION_ID = src.MEMBER_ADDITION_ID, " +
+                   "tgt.MEMBER_PAN = src.MEMBER_PAN, tgt.MEMBER_STATUS = src.MEMBER_STATUS, tgt.MEMBERSHIP_NUMBER = src.MEMBERSHIP_NUMBER, " +
+                   "tgt.MIDDLE_NAME = src.MIDDLE_NAME, tgt.MOBILE_NO = src.MOBILE_NO, tgt.MODIFIED_BY = src.MODIFIED_BY, tgt.MODIFIED_ON = src.MODIFIED_ON, " +
+                   "tgt.POLICY_ID = src.POLICY_ID, tgt.SPOUSE_NAME = src.SPOUSE_NAME, tgt.TYPE_OF_MEMEBERSHIP = src.TYPE_OF_MEMEBERSHIP, " +
+                   "tgt.ANNUITY_OPTION = src.ANNUITY_OPTION, tgt.BATCH_ID = src.BATCH_ID, tgt.CATEGORY = src.CATEGORY, tgt.EMPLOYEE_CONTRIBUTION = src.EMPLOYEE_CONTRIBUTION, " +
+                   "tgt.EMPLOYER_CONTRIBUTION = src.EMPLOYER_CONTRIBUTION, tgt.FREQUENCY = src.FREQUENCY, tgt.MPH_CODE = src.MPH_CODE, tgt.MPH_NAME = src.MPH_NAME, " +
+                   "tgt.PAN = src.PAN, tgt.PHONE = src.PHONE, tgt.POLICY_NO = src.POLICY_NO, tgt.POLICY_STATUS = src.POLICY_STATUS, tgt.PRODUCT = src.PRODUCT, " +
+                   "tgt.QUOTATION_ID = src.QUOTATION_ID, tgt.QUOTATION_TYPE = src.QUOTATION_TYPE, tgt.REF_LIC_ID = src.REF_LIC_ID, tgt.ROLE = src.ROLE, " +
+                   "tgt.SERVICE_ID = src.SERVICE_ID, tgt.SERVICE_NUMBER = src.SERVICE_NUMBER, tgt.SERVICE_STATUS = src.SERVICE_STATUS, " +
+                   "tgt.TOTAL_CONTRIBUTION = src.TOTAL_CONTRIBUTION, tgt.TOTAL_INTERESTED_ACCURED = src.TOTAL_INTERESTED_ACCURED, " +
+                   "tgt.UNIT_CODE = src.UNIT_CODE, tgt.VOLUNTARY_CONTRIBUTION = src.VOLUNTARY_CONTRIBUTION, tgt.MEMBER_SHIP_ID = src.MEMBER_SHIP_ID " +
+                   "WHEN NOT MATCHED THEN " +
+                   "INSERT (MEMBER_ID, AADHAR_NUMBER, CATE
