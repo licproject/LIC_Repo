@@ -1,59 +1,41 @@
-package com.lic.package.service;
+for the above entity with package name com.lic.package.service
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.lic.package.model.POLICY_SRV_MBR;
-import com.lic.package.model.POLICY_SRV_MBR_ADD;
-import com.lic.package.model.POLICY_SRV_MBR_BANK;
-import com.lic.package.model.POLICY_SRV_MBR_NOMI;
-import com.lic.package.model.POLICY_SRV_MBR_APOTE;
-import com.lic.package.repository.MemberRepository;
-
-@Service
 public class MemberService {
 
-	@Autowired
 	private MemberRepository memberRepository;
-
-	public POLICY_SRV_MBR saveMember(POLICY_SRV_MBR member) {
+	
+	public MemberService(MemberRepository memberRepository) {
+		this.memberRepository = memberRepository;
+	}
+	
+	// Inserting an Individual Member
+	public Member insertIndividualMember(Member member) {
 		return memberRepository.save(member);
 	}
-
-	public POLICY_SRV_MBR_ADD saveAddress(POLICY_SRV_MBR_ADD address) {
-		return memberRepository.save(address);
+	
+	// Inserting Multiple Members
+	public List<Member> insertMultipleMembers(List<Member> members) {
+		return memberRepository.saveAll(members);
 	}
-
-	public POLICY_SRV_MBR_BANK saveBankInformation(POLICY_SRV_MBR_BANK bank) {
-		return memberRepository.save(bank);
+	
+	// Updating a Member
+	public Member updateMember(Member member) {
+		return memberRepository.save(member);
 	}
-
-	public POLICY_SRV_MBR_APOTE saveAppointee(POLICY_SRV_MBR_APOTE appointee) {
-		return memberRepository.save(appointee);
+	
+	// Retrieving a Member
+	public Member getMemberById(Long memberId) {
+		return memberRepository.findById(memberId).orElse(null);
 	}
-
-	public POLICY_SRV_MBR_NOMI saveNominee(POLICY_SRV_MBR_NOMI nominee) {
-		return memberRepository.save(nominee);
+	
+	// Deleting a Member
+	public void deleteMember(Long memberId) {
+		memberRepository.deleteById(memberId);
 	}
-
-	public POLICY_SRV_MBR updateMember(POLICY_SRV_MBR member) {
-		return memberRepository.update(member);
-	}
-
-	public POLICY_SRV_MBR_ADD updateAddress(POLICY_SRV_MBR_ADD address) {
-		return memberRepository.update(address);
-	}
-
-	public POLICY_SRV_MBR_BANK updateBankInformation(POLICY_SRV_MBR_BANK bank) {
-		return memberRepository.update(bank);
-	}
-
-	public POLICY_SRV_MBR_APOTE updateAppointee(POLICY_SRV_MBR_APOTE appointee) {
-		return memberRepository.update(appointee);
-	}
-
-	public POLICY_SRV_MBR_NOMI updateNominee(POLICY_SRV_MBR_NOMI nominee) {
-		return memberRepository.update(nominee);
+	
+	// Retrieving all Members
+	public List<Member> getAllMembers() {
+		return memberRepository.findAll();
 	}
 
 }
