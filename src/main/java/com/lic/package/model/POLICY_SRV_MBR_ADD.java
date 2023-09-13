@@ -1,112 +1,57 @@
-package com.lic.package.model;
-
-import java.sql.Timestamp;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
-
-@Entity
-@Table(name = "POLICY_SRV_MBR_ADD")
 public class POLICY_SRV_MBR_ADD {
-	@Id
-	private Long MEMBER_ADDITION_ID;
-	private String CREATED_BY;
-	private Timestamp CREATED_ON;
-	private Double EMPLOYEE_CONTRIBUTION;
-	private Double EMPLOYER_CONTRIBUTION;
-	private Boolean IS_ACTIVE;
-	private String LINE_OF_BUSINESS;
-	private String MEMBER_ADDITION_STATUS;
-	private String MODIFIED_BY;
-	private Timestamp MODIFIED_ON;
-	private String MPH_CODE;
-	private String MPH_NAME;
-	private Long POLICY_ID;
-	private Long POLICY_MBR_NO;
-	private String POLICY_NUMBER;
-	private String POLICY_STATUS;
-	private String PRODUCT;
-	private String REJECTION_REASON_CODE;
-	private String REJECTION_REMARKS;
-	private Long SERVICE_ID;
-	private String SERVICE_NUMBER;
-	private String SERVICE_STATUS;
-	private Double TOTAL_CONTRIBUTION;
-	private String UNIT_CODE;
-	private Double VOLUNTARY_CONTRIBUTION;
-	private Integer NO_OF_CATEGORY;
 
-	public Long getMEMBER_ADDITION_ID() {
-		return MEMBER_ADDITION_ID;
-	}
+    private Long memberAdditionId;
 
-	public void setMEMBER_ADDITION_ID(Long mEMBER_ADDITION_ID) {
-		MEMBER_ADDITION_ID = mEMBER_ADDITION_ID;
-	}
+    private String createdBy;
 
-	public String getCREATED_BY() {
-		return CREATED_BY;
-	}
+    private Timestamp createdOn;
 
-	public void setCREATED_BY(String cREATED_BY) {
-		CREATED_BY = cREATED_BY;
-	}
+    private Integer employeeContribution;
 
-	public Timestamp getCREATED_ON() {
-		return CREATED_ON;
-	}
+    private Integer employerContribution;
 
-	public void setCREATED_ON(Timestamp cREATED_ON) {
-		CREATED_ON = cREATED_ON;
-	}
+    private String isActive;
 
-	public Double getEMPLOYEE_CONTRIBUTION() {
-		return EMPLOYEE_CONTRIBUTION;
-	}
+    private String lineOfBusiness;
 
-	public void setEMPLOYEE_CONTRIBUTION(Double eMPLOYEE_CONTRIBUTION) {
-		EMPLOYEE_CONTRIBUTION = eMPLOYEE_CONTRIBUTION;
-	}
+    private String memberAdditionStatus;
 
-	public Double getEMPLOYER_CONTRIBUTION() {
-		return EMPLOYER_CONTRIBUTION;
-	}
+    private String modifiedBy;
 
-	public void setEMPLOYER_CONTRIBUTION(Double eMPLOYER_CONTRIBUTION) {
-		EMPLOYER_CONTRIBUTION = eMPLOYER_CONTRIBUTION;
-	}
+    private Timestamp modifiedOn;
 
-	public Boolean getIS_ACTIVE() {
-		return IS_ACTIVE;
-	}
+    private String mphCode;
 
-	public void setIS_ACTIVE(Boolean iS_ACTIVE) {
-		IS_ACTIVE = iS_ACTIVE;
-	}
+    private String mphName;
 
-	public String getLINE_OF_BUSINESS() {
-		return LINE_OF_BUSINESS;
-	}
+    private Long policyId;
 
-	public void setLINE_OF_BUSINESS(String lINE_OF_BUSINESS) {
-		LINE_OF_BUSINESS = lINE_OF_BUSINESS;
-	}
+    private String policyMbrNo;
 
-	public String getMEMBER_ADDITION_STATUS() {
-		return MEMBER_ADDITION_STATUS;
-	}
+    private String policyNumber;
 
-	public void setMEMBER_ADDITION_STATUS(String mEMBER_ADDITION_STATUS) {
-		MEMBER_ADDITION_STATUS = mEMBER_ADDITION_STATUS;
-	}
+    private String policyStatus;
 
-	public String getMODIFIED_BY() {
-		return MODIFIED_BY;
-	}
+    private String product;
 
-	public void setMODIFIED_BY(String mODIFIED_BY) {
-		MODIFIED_BY = mODIFIED_BY;
-	}
+    private String rejectionReasonCode;
 
-	public Timestamp getMODIFIED_ON() {
+    private String rejectionRemarks;
+
+    private Long serviceId;
+
+    private String serviceNumber;
+
+    private String serviceStatus;
+
+    private Integer totalContribution;
+
+    private String unitCode;
+
+    private Integer voluntaryContribution;
+
+    private Integer noOfCategory;
+
+    // Getters and Setters for all the above fields
+
+}
