@@ -1,75 +1,64 @@
-for the above entity
-
 package com.lic.package.controller;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lic.package.entity.Member;
-import com.lic.package.repository.MemberRepository;
+import com.lic.package.model.Member;
+import com.lic.package.service.MemberService;
 
 @RestController
 @RequestMapping("/member")
 public class MemberController {
 
 	@Autowired
-	private MemberRepository memberRepository;
-
-	// Inserting an Individual Member
-	@PostMapping("/insert")
-	public Member insertIndividualMember(@RequestBody Member member) {
-		member.setCreatedOn(LocalDateTime.now());
-		member.setModifiedOn(LocalDateTime.now());
-		member.setIsActive(true);
-		member.setIsZeroId(false);
-		return memberRepository.save(member);
+	private MemberService memberService;
+	
+	// Create
+	@PostMapping("/add")
+	public Member save(@RequestBody Member member) {
+		return memberService.save(member);
 	}
 	
-	// Inserting Multiple Members
-	@PostMapping("/insert/multiple")
-	public List<Member> insertMultipleMembers(@RequestBody List<Member> members) {
-		for(Member member : members) {
-			member.setCreatedOn(LocalDateTime.now());
-			member.setModifiedOn(LocalDateTime.now());
-			member.setIsActive(true);
-			member.setIsZeroId(false);
-		}
-		return memberRepository.saveAll(members);
+	// Read 
+	@GetMapping("/id/{id}")
+	public Member findById(@PathVariable int id) {
+		return memberService.findById(id);
 	}
 	
-	// Updating a Member
+	@GetMapping("/aadharNumber/{aadharNumber}")
+	public Member findByAadharNumber(@PathVariable String aadharNumber) {
+		return memberService.findByAadharNumber(aadharNumber);
+	}
+	
+	@GetMapping("/all")
+	public List<Member> findAll() {
+		return memberService.findAll();
+	}
+	
+	// Update
 	@PutMapping("/update")
-	public Member updateMember(@RequestBody Member member) {
-		member.setModifiedOn(LocalDateTime.now());
-		return memberRepository.save(member);
+	public int updateMember(@RequestBody Member member) {
+		return memberService.updateMember(member.getMemberId(), member.getCategoryNo(), member.getCommunicationPreference(), member.getDateOfBirth(), member.getDateOfJoining(), member.getDateOfJoiningScheme(), member.getDateOfRetirement(), member.getDesignation(), member.getEmailId(), member.getFatherName(), member.getFirstName(), member.getGender(), member.getIsActive(), member.getIsZeroId(), member.getLandlineNo(), member.getLanguagePreference(), member.getLastName(), member.getLicId(), member.getMaritalStatus(), member.getMemberPan(), member.getMemberStatus(), member.getMembershipNumber(), member.getMiddleName(), member.getMobileNo(), member.getPolicyId(), member.getSpouseName(), member.getTypeOfMembership());
 	}
 	
-	// Retrieving a Member
-	@GetMapping("/get")
-	public Member getMemberById(@RequestParam Long memberId) {
-		return memberRepository.findById(memberId).orElse(null);
+	// Delete
+	@DeleteMapping("/delete/id/{id}")
+	public void deleteById(@PathVariable int id) {
+		memberService.deleteById(id);
 	}
 	
-	// Deleting a Member
-	@DeleteMapping("/delete")
-	public void deleteMember(@RequestParam Long memberId) {
-		memberRepository.deleteById(memberId);
+	@DeleteMapping("/delete/aadharNumber/{aadharNumber}")
+	public int deleteByAadharNumber(@PathVariable String aadharNumber) {
+		return memberService.deleteByAadharNumber(aadharNumber);
 	}
 	
-	// Retrieving all Members
-	@GetMapping("/get/all")
-	public List<Member> getAllMembers() {
-		return memberRepository.findAll();
-	}
-
 }
