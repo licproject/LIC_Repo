@@ -1,86 +1,97 @@
-Preference(String languagePreference) {
-        return policySrvMbrRepository.findByLanguagePreference(languagePreference);
-    }
+bi.setModifiedOn(new Date());
+		return policyRepository.save(bi);
+	}
+	
+	public BankInformation getBankInformationById(Long bankId) {
+		Optional<BankInformation> bankInformation = policyRepository.findById(bankId);
+		if (bankInformation.isPresent()) {
+			return bankInformation.get();
+		}
+		return null;
+	}
+	
+	public List<BankInformation> getAllBankInformations() {
+		return policyRepository.findAll();
+	}
+	
+	// For Nominees (POLICY_SRV_MBR_NOMI)
+	public Nominee createNominee(Nominee n) {
+		n.setCreatedBy("systemAdmin");
+		n.setCreatedOn(new Date());
+		n.setModifiedBy("systemAdmin");
+		n.setModifiedOn(new Date());
+		return policyRepository.save(n);
+	}
+	
+	public Nominee updateNominee(Long nomineeId, Nominee n) {
+		Optional<Nominee> nominee = policyRepository.findById(nomineeId);
+		if (nominee.isPresent()) {
+			n.setNomineeId(nomineeId);
+			n.setModifiedBy("systemAdmin");
+			n.setModifiedOn(new Date());
+			return policyRepository.save(n);
+		}
+		return null;
+	}
+	
+	public Nominee getNomineeById(Long nomineeId) {
+		Optional<Nominee> nominee = policyRepository.findById(nomineeId);
+		if (nominee.isPresent()) {
+			return nominee.get();
+		}
+		return null;
+	}
+	
+	public List<Nominee> getAllNominees() {
+		return policyRepository.findAll();
+	}
+	
+	// For Appointees (POLICY_SRV_MBR_APOTE)
+	public Appointee createAppointee(Appointee a) {
+		a.setCreatedBy("systemAdmin");
+		a.setCreatedOn(new Date());
+		a.setModifiedBy("systemAdmin");
+		a.setModifiedOn(new Date());
+		return policyRepository.save(a);
+	}
+	
+	public Appointee updateAppointee(Long appointeeId, Appointee a) {
+		Optional<Appointee> appointee = policyRepository.findById(appointeeId);
+		if (appointee.isPresent()) {
+			a.setAppointeeId(appointeeId);
+			a.setModifiedBy("systemAdmin");
+			a.setModifiedOn(new Date());
+			return policyRepository.save(a);
+		}
+		return null;
+	}
+	
+	public Appointee getAppointeeById(Long appointeeId) {
+		Optional<Appointee> appointee = policyRepository.findById(appointeeId);
+		if (appointee.isPresent()) {
+			return appointee.get();
+		}
+		return null;
+	}
+	
+	public List<Appointee> getAllAppointees() {
+		return policyRepository.findAll();
+	}
+}
 
-    public Optional<PolicySrvMbr> findByLastName(String lastName) {
-        return policySrvMbrRepository.findByLastName(lastName);
-    }
+package com.lic.package.controller;
 
-    public Optional<PolicySrvMbr> findByLicId(String licId) {
-        return policySrvMbrRepository.findByLicId(licId);
-    }
+import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-    public Optional<PolicySrvMbr> findByMaritalStatus(String maritalStatus) {
-        return policySrvMbrRepository.findByMaritalStatus(maritalStatus);
-    }
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-    public Optional<PolicySrvMbr> findByMemberAdditionId(Long memberAdditionId) {
-        return policySrvMbrRepository.findByMemberAdditionId(memberAdditionId);
-    }
-
-    public Optional<PolicySrvMbr> findByMemberPan(String memberPan) {
-        return policySrvMbrRepository.findByMemberPan(memberPan);
-    }
-
-    public Optional<PolicySrvMbr> findByMemberStatus(String memberStatus) {
-        return policySrvMbrRepository.findByMemberStatus(memberStatus);
-    }
-
-    public Optional<PolicySrvMbr> findByMembershipNumber(String membershipNumber) {
-        return policySrvMbrRepository.findByMembershipNumber(membershipNumber);
-    }
-
-    public Optional<PolicySrvMbr> findByMiddleName(String middleName) {
-        return policySrvMbrRepository.findByMiddleName(middleName);
-    }
-
-    public Optional<PolicySrvMbr> findByMobileNo(Long mobileNo) {
-        return policySrvMbrRepository.findByMobileNo(mobileNo);
-    }
-
-    public Optional<PolicySrvMbr> findByModifiedBy(String modifiedBy) {
-        return policySrvMbrRepository.findByModifiedBy(modifiedBy);
-    }
-
-    public Optional<PolicySrvMbr> findByModifiedOn(Timestamp modifiedOn) {
-        return policySrvMbrRepository.findByModifiedOn(modifiedOn);
-    }
-
-    public Optional<PolicySrvMbr> findByPolicyId(Long policyId) {
-        return policySrvMbrRepository.findByPolicyId(policyId);
-    }
-
-    public Optional<PolicySrvMbr> findBySpouseName(String spouseName) {
-        return policySrvMbrRepository.findBySpouseName(spouseName);
-    }
-
-    public Optional<PolicySrvMbr> findByTypeOfMembership(String typeOfMembership) {
-        return policySrvMbrRepository.findByTypeOfMembership(typeOfMembership);
-    }
-
-    public Optional<PolicySrvMbr> findByAnnuityOption(String annuityOption) {
-        return policySrvMbrRepository.findByAnnuityOption(annuityOption);
-    }
-
-    public Optional<PolicySrvMbr> findByBatchId(Long batchId) {
-        return policySrvMbrRepository.findByBatchId(batchId);
-    }
-
-    public Optional<PolicySrvMbr> findByCategory(Long category) {
-        return policySrvMbrRepository.findByCategory(category);
-    }
-
-    public Optional<PolicySrvMbr> findByEmployeeContribution(Long employeeContribution) {
-        return policySrvMbrRepository.findByEmployeeContribution(employeeContribution);
-    }
-
-    public Optional<PolicySrvMbr> findByEmployerContribution(Long employerContribution) {
-        return policySrvMbrRepository.findByEmployerContribution(employerContribution);
-    }
-
-    public Optional<PolicySrvMbr> findByFrequency(Long frequency) {
-        return policySrvMbrRepository.findByFrequency(frequency);
-    }
-
-    public Optional<PolicySrvMbr> findByMphCode(String mphCode) {
-        return policySrvMbrRepository.findByMphCode(mphCode);
+import com.lic.
