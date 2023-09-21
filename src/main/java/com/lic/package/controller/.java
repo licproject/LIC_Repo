@@ -1,51 +1,86 @@
-MBR_ADD> findByPOLICY_ID(Long POLICY_ID) {
-        return memberAddressRepository.findByPOLICY_ID(POLICY_ID);
+Preference(String languagePreference) {
+        return policySrvMbrRepository.findByLanguagePreference(languagePreference);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByPOLICY_NUMBER(String POLICY_NUMBER) {
-        return memberAddressRepository.findByPOLICY_NUMBER(POLICY_NUMBER);
+    public Optional<PolicySrvMbr> findByLastName(String lastName) {
+        return policySrvMbrRepository.findByLastName(lastName);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByPOLICY_STATUS(String POLICY_STATUS) {
-        return memberAddressRepository.findByPOLICY_STATUS(POLICY_STATUS);
+    public Optional<PolicySrvMbr> findByLicId(String licId) {
+        return policySrvMbrRepository.findByLicId(licId);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByPRODUCT(String PRODUCT) {
-        return memberAddressRepository.findByPRODUCT(PRODUCT);
+    public Optional<PolicySrvMbr> findByMaritalStatus(String maritalStatus) {
+        return policySrvMbrRepository.findByMaritalStatus(maritalStatus);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByREJECTION_REASON_CODE(String REJECTION_REASON_CODE) {
-        return memberAddressRepository.findByREJECTION_REASON_CODE(REJECTION_REASON_CODE);
+    public Optional<PolicySrvMbr> findByMemberAdditionId(Long memberAdditionId) {
+        return policySrvMbrRepository.findByMemberAdditionId(memberAdditionId);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findBySERVICE_ID(Long SERVICE_ID) {
-        return memberAddressRepository.findBySERVICE_ID(SERVICE_ID);
+    public Optional<PolicySrvMbr> findByMemberPan(String memberPan) {
+        return policySrvMbrRepository.findByMemberPan(memberPan);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findBySERVICE_NUMBER(String SERVICE_NUMBER) {
-        return memberAddressRepository.findBySERVICE_NUMBER(SERVICE_NUMBER);
+    public Optional<PolicySrvMbr> findByMemberStatus(String memberStatus) {
+        return policySrvMbrRepository.findByMemberStatus(memberStatus);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findBySERVICE_STATUS(String SERVICE_STATUS) {
-        return memberAddressRepository.findBySERVICE_STATUS(SERVICE_STATUS);
+    public Optional<PolicySrvMbr> findByMembershipNumber(String membershipNumber) {
+        return policySrvMbrRepository.findByMembershipNumber(membershipNumber);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByTOTAL_CONTRIBUTION(String TOTAL_CONTRIBUTION) {
-        return memberAddressRepository.findByTOTAL_CONTRIBUTION(TOTAL_CONTRIBUTION);
+    public Optional<PolicySrvMbr> findByMiddleName(String middleName) {
+        return policySrvMbrRepository.findByMiddleName(middleName);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByUNIT_CODE(String UNIT_CODE) {
-        return memberAddressRepository.findByUNIT_CODE(UNIT_CODE);
+    public Optional<PolicySrvMbr> findByMobileNo(Long mobileNo) {
+        return policySrvMbrRepository.findByMobileNo(mobileNo);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByVOLUNTARY_CONTRIBUTION(String VOLUNTARY_CONTRIBUTION) {
-        return memberAddressRepository.findByVOLUNTARY_CONTRIBUTION(VOLUNTARY_CONTRIBUTION);
+    public Optional<PolicySrvMbr> findByModifiedBy(String modifiedBy) {
+        return policySrvMbrRepository.findByModifiedBy(modifiedBy);
     }
 
-    public List<POLICY_SRV_MBR_ADD> findByNO_OF_CATEGORY(String NO_OF_CATEGORY) {
-        return memberAddressRepository.findByNO_OF_CATEGORY(NO_OF_CATEGORY);
+    public Optional<PolicySrvMbr> findByModifiedOn(Timestamp modifiedOn) {
+        return policySrvMbrRepository.findByModifiedOn(modifiedOn);
     }
 
-    @Transactional
-    public void updateMemberAddress(Long MEMBER_ADDITION_ID, String CREATED_BY, String EMPLOYEE_CONTRIBUTION, String EMPLOYER_CONTRIBUTION, String IS_ACTIVE, String LINE_OF_BUSINESS, String MEMBER_ADDITION_STATUS, String MODIFIED_BY, String MPH_CODE, String MPH_NAME, Long POLICY_ID, String POLICY_MBR_NO, String POLICY_NUMBER, String POLICY_STATUS, String PRODUCT, String REJECTION_REASON_CODE, String REJECTION_REMARKS, Long SERVICE_ID, String SERVICE_NUMBER, String SERVICE_STATUS, String TOTAL_CONTRIBUTION, String UNIT_CODE, String VOLUNTARY_CONTRIBUTION, String NO_OF_CATEGORY) {
-        memberAddressRepository.updateMemberAddress(MEMBER_ADDITION_ID, CREATED_BY, EMPLOYEE_CONTRIBUTION, EMPLOYER_CONTRIBUTION, IS_ACTIVE, LINE_OF_BUSINESS, MEMBER_ADDITION_STATUS, MODIFIED_BY, MPH_CODE, MPH_NAME, POLICY_ID, POLICY_MBR_NO, POLICY_
+    public Optional<PolicySrvMbr> findByPolicyId(Long policyId) {
+        return policySrvMbrRepository.findByPolicyId(policyId);
+    }
+
+    public Optional<PolicySrvMbr> findBySpouseName(String spouseName) {
+        return policySrvMbrRepository.findBySpouseName(spouseName);
+    }
+
+    public Optional<PolicySrvMbr> findByTypeOfMembership(String typeOfMembership) {
+        return policySrvMbrRepository.findByTypeOfMembership(typeOfMembership);
+    }
+
+    public Optional<PolicySrvMbr> findByAnnuityOption(String annuityOption) {
+        return policySrvMbrRepository.findByAnnuityOption(annuityOption);
+    }
+
+    public Optional<PolicySrvMbr> findByBatchId(Long batchId) {
+        return policySrvMbrRepository.findByBatchId(batchId);
+    }
+
+    public Optional<PolicySrvMbr> findByCategory(Long category) {
+        return policySrvMbrRepository.findByCategory(category);
+    }
+
+    public Optional<PolicySrvMbr> findByEmployeeContribution(Long employeeContribution) {
+        return policySrvMbrRepository.findByEmployeeContribution(employeeContribution);
+    }
+
+    public Optional<PolicySrvMbr> findByEmployerContribution(Long employerContribution) {
+        return policySrvMbrRepository.findByEmployerContribution(employerContribution);
+    }
+
+    public Optional<PolicySrvMbr> findByFrequency(Long frequency) {
+        return policySrvMbrRepository.findByFrequency(frequency);
+    }
+
+    public Optional<PolicySrvMbr> findByMphCode(String mphCode) {
+        return policySrvMbrRepository.findByMphCode(mphCode);

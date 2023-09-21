@@ -1,103 +1,105 @@
-package com.lic.package.model;
+PolicySrvMbr> findByScheme(String scheme);
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+    Optional<PolicySrvMbr> findByServiceServiceId(Long serviceServiceId);
 
-@Entity
-@Table(name="policy_srv_mbr")
-public class PolicySrvMbr {
-
-    @Id
-    private Long memberId;
-    private String memberName;
-    private String address;
-    private String phoneNo;
-    private String email;
-    private String bankName;
-    private String bankAccountNo;
-    private String bankBranch;
-    private String appointeeName;
-    private String nomineeName;
-
-    public Long getMemberId() {
-        return memberId;
-    }
-
-    public void setMemberId(Long memberId) {
-        this.memberId = memberId;
-    }
-
-    public String getMemberName() {
-        return memberName;
-    }
-
-    public void setMemberName(String memberName) {
-        this.memberName = memberName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getPhoneNo() {
-        return phoneNo;
-    }
-
-    public void setPhoneNo(String phoneNo) {
-        this.phoneNo = phoneNo;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getBankName() {
-        return bankName;
-    }
-
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
-    }
-
-    public String getBankAccountNo() {
-        return bankAccountNo;
-    }
-
-    public void setBankAccountNo(String bankAccountNo) {
-        this.bankAccountNo = bankAccountNo;
-    }
-
-    public String getBankBranch() {
-        return bankBranch;
-    }
-
-    public void setBankBranch(String bankBranch) {
-        this.bankBranch = bankBranch;
-    }
-
-    public String getAppointeeName() {
-        return appointeeName;
-    }
-
-    public void setAppointeeName(String appointeeName) {
-        this.appointeeName = appointeeName;
-    }
-
-    public String getNomineeName() {
-        return nomineeName;
-    }
-
-    public void setNomineeName(String nomineeName) {
-        this.nomineeName = nomineeName;
-    }
+    Optional<PolicySrvMbr> findBySource(String source);
 
 }
+
+package com.lic.package.model;
+
+import java.sql.Timestamp;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
+public class PolicySrvMbr {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Long id;
+	
+	private Long memberId;
+	private Long aadharNumber;
+	private Long categoryNo;
+	private String communicationPreference;
+	private String createdBy;
+	private Timestamp createdOn;
+	private Timestamp dateOfBirth;
+	private Timestamp dateOfJoining;
+	private Timestamp dateOfJoiningScheme;
+	private Timestamp dateOfRetirement;
+	private String designation;
+	private String emailId;
+	private String fatherName;
+	private String firstName;
+	private String gender;
+	private Long isActive;
+	private Long isZeroId;
+	private Long landlineNo;
+	private String languagePreference;
+	private String lastName;
+	private String licId;
+	private String maritalStatus;
+	private Long memberAdditionId;
+	private String memberPan;
+	private String memberStatus;
+	private String membershipNumber;
+	private String middleName;
+	private Long mobileNo;
+	private String modifiedBy;
+	private Timestamp modifiedOn;
+	private Long policyId;
+	private String spouseName;
+	private String typeOfMembership;
+	private String annuityOption;
+	private Long batchId;
+	private Long category;
+	private Long employeeContribution;
+	private Long employerContribution;
+	private Long frequency;
+	private String mphCode;
+	private String mphName;
+	private String pan;
+	private Long phone;
+	private String policyNo;
+	private String policyStatus;
+	private String product;
+	private String scheme;
+	private Long serviceServiceId;
+	private String source;
+	
+	public PolicySrvMbr() {
+		
+	}
+	
+	public PolicySrvMbr(Long memberId, Long aadharNumber, Long categoryNo, String communicationPreference,
+			String createdBy, Timestamp createdOn, Timestamp dateOfBirth, Timestamp dateOfJoining,
+			Timestamp dateOfJoiningScheme, Timestamp dateOfRetirement, String designation, String emailId,
+			String fatherName, String firstName, String gender, Long isActive, Long isZeroId, Long landlineNo,
+			String languagePreference, String lastName, String licId, String maritalStatus, Long memberAdditionId,
+			String memberPan, String memberStatus, String membershipNumber, String middleName, Long mobileNo,
+			String modifiedBy, Timestamp modifiedOn, Long policyId, String spouseName, String typeOfMembership,
+			String annuityOption, Long batchId, Long category, Long employeeContribution, Long employerContribution,
+			Long frequency, String mphCode, String mphName, String pan, Long phone, String policyNo, String policyStatus,
+			String product, String scheme, Long serviceServiceId, String source) {
+		super();
+		this.memberId = memberId;
+		this.aadharNumber = aadharNumber;
+		this.categoryNo = categoryNo;
+		this.communicationPreference = communicationPreference;
+		this.createdBy = createdBy;
+		this.createdOn = createdOn;
+		this.dateOfBirth = dateOfBirth;
+		this.dateOfJoining = dateOfJoining;
+		this.dateOfJoiningScheme = dateOfJoiningScheme;
+		this.dateOfRetirement = dateOfRetirement;
+		this.designation = designation;
+		this.emailId = emailId;
+		this.fatherName = fatherName;
+		this.firstName = firstName;
+		this.gender = gender;
+		this.isActive = isActive;
+		this.is
