@@ -1,21 +1,10 @@
-package com.lic.package.repository;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-import com.lic.package.entity.MemberDetails;
-
 @Repository
-public interface MemberDetailsRepository extends JpaRepository<MemberDetails, String> {
+public interface MemberDetailsRepository extends JpaRepository<POLICY_SRV_MBR, Long> {
 
-  //Saving Member Details
-  @Modifying
-  @Query("INSERT INTO POLICY_SRV_MBR (AADHAR_NUMBER, CATEGORY_NO, COMMUNICATION_PREFERENCE, CREATED_BY, DATE_OF_BIRTH, DATE_OF_JOINING, DATE_OF_JOINING_SCHEME, DATE_OF_RETIREMENT, DESIGNATION, EMAILID, FATHER_NAME, FIRST_NAME, GENDER, IS_ACTIVE, IS_ZEROID, LANDLINE_NO, LANGUAGE_PREFERENCE, LAST_NAME, LIC_ID, MARITAL_STATUS, MEMBER_PAN, MEMBER_STATUS, MEMBERSHIP_NUMBER, MIDDLE_NAME, MOBILE_NO, POLICY_ID, SPOUSE_NAME, TYPE_OF_MEMBERSHIP)"
-  + "VALUES (:aadharNumber, :categoryNo, :communicationPreference, :createdBy, :dateOfBirth, :dateOfJoining, :dateOfJoiningScheme, :dateOfRetirement, :designation, :emailId, :fatherName, :firstName, :gender, :isActive, :isZeroId, :landlineNo, :languagePreference, :lastName, :licId, :maritalStatus, :memberPan, :memberStatus, :membershipNumber, :middleName, :mobileNo, :policyId, :spouseName, :typeOfMembership)")
-  public int saveMemberDetails(@Param("aadharNumber") String aadharNumber, @Param("categoryNo") String categoryNo, @Param("communicationPreference") String communicationPreference, @Param("createdBy") String createdBy, @Param("dateOfBirth") String dateOfBirth, @Param("dateOfJoining") String dateOfJoining, @Param("dateOfJoiningScheme") String dateOfJoiningScheme, @Param("dateOfRetirement") String dateOfRetirement, @Param("designation") String designation, @Param("emailId") String emailId, @Param("fatherName") String fatherName, @Param("firstName") String firstName, @Param("gender") String gender, @Param("isActive") String isActive, @Param("isZeroId") String isZeroId, @Param("landlineNo") String landlineNo, @Param("languagePreference") String languagePreference, @Param("lastName") String lastName, @Param("licId") String licId, @Param("maritalStatus") String maritalStatus, @Param("memberPan") String memberPan, @Param("memberStatus") String memberStatus, @Param("membershipNumber") String membershipNumber, @Param("middleName") String middleName, @Param("mobileNo") String mobileNo, @Param("policyId") String policyId, @Param("spouseName") String spouseName, @Param("typeOfMembership") String typeOfMembership);
+    Optional<POLICY_SRV_MBR> findByMemberId(Long memberId);
 
-//Updating Member Details
-@Modifying
-@Query("UPDATE POLICY_SRV_MBR SET AADHAR_NUMBER = :aadharNumber, CATEGORY_NO = :categoryNo, COMMUNICATION_PREFERENCE = :communicationPreference, CREATED_BY = :createdBy, DATE_OF_BIRTH = :dateOfBirth, DATE_OF_JOINING = :dateOfJoining, DATE_OF_JOINING_SCHEME = :dateOfJoiningScheme, DATE_OF_RETIREMENT = :dateOfRetirement, DESIGNATION = :designation, EMAILID = :emailId, FATHER_NAME = :fatherName, FIRST_NAME = :firstName, GENDER = :gender, IS_ACTIVE = :isActive, IS_ZEROID = :isZeroId, LANDLINE_
+    Optional<POLICY_SRV_MBR> findByAadharNumber(String aadharNumber);
+
+    List<POLICY_SRV_MBR> findByCategoryNumberAndCommunicationPreferenceAndCreatedByAndCreatedOnAndDateOfBirthAndDateOfJoiningAndDateOfJoiningSchemeAndDateOfRetirementAndDesignationAndEmailAddressAndFathersNameAndFirstNameAndGenderAndIsActiveAndIsZeroIdAndLandlineNumberAndLanguagePreferenceAndLastNameAndLICIdAndMaritalStatusAndMemberAdditionIdAndMemberPANAndMemberStatusAndMembershipNumberAndMiddleNameAndMobileNumberAndModifiedByAndModifiedOnAndPolicyIdAndSpouseNameAndTypeOfMembershipAndAnnuityOptionAndBatchIdAndCategoryAndEmployeeContributionAndEmployerContributionAndFrequencyAndMPHCodeAndMPHNameAndPANAndPhoneNumberAndPolicyNumberAndPolicyStatusAndProductAndQuotationIdAndQuotationTypeAndReferenceLICIdAndRoleAndServiceIdAndServiceNumberAndServiceStatusAndTotalContributionAndTotalInterestedAccruedAndUnitCodeAndVoluntaryContributionAndMembershipId(String categoryNumber, String communicationPreference, String createdBy, Date createdOn, Date dateOfBirth, Date dateOfJoining, Date dateOfJoiningScheme, Date dateOfRetirement, String designation, String emailAddress, String fathersName, String firstName, String gender, Integer isActive, Integer isZeroId, String landlineNumber, String languagePreference, String lastName, String lICId, String maritalStatus, String memberAdditionId, String memberPAN, String memberStatus, String membershipNumber, String middleName, String mobileNumber, String modifiedBy, Date modifiedOn, String policyId, String spouseName, String typeOfMembership, String annuityOption, String batchId, String category, Integer employeeContribution, Integer employerContribution, String frequency, String mPHCode, String mPHName, String pAN, String phoneNumber, String policyNumber, String policyStatus, String product, String quotationId, String quotationType, String referenceLICId, String role, String serviceId, String serviceNumber, String serviceStatus, Integer totalContribution, Integer totalInterestedAccrued, String unitCode, Integer voluntaryContribution, String membershipId);
+
+}
