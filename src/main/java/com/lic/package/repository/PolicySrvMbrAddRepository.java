@@ -1,63 +1,25 @@
-Package name: com.lic.package.repository
+o   The following address details must be updated:EMPLOYEE_CONTRIBUTIONEMPLOYER_CONTRIBUTIONIS_ACTIVELINE_OF_BUSINESSMEMBER_ADDITION_STATUSMODIFIED_BYMODIFIED_ONMPH_CODEMPH_NAMEPOLICY_MBR_NOPOLICY_NUMBERPOLICY_STATUSPRODUCTREJECTION_REASON_CODEREJECTION_REMARKSSERVICE_IDSERVICE_NUMBERSERVICE_STATUSTOTAL_CONTRIBUTIONUNIT_CODEVOLUNTARY_CONTRIBUTIONNO_OF_CATEGORY
+
+package com.lic.package.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PolicySrvMbrAddRepository extends JpaRepository<POLICY_SRV_MBR_ADD, Long> {
+public interface PolicySrvMbrAddRepository extends JpaRepository<PolicySrvMbrAdd, Long> {
 
-    List<POLICY_SRV_MBR_ADD> findByMemberAdditionId(Long memberAdditionId);
+    // Method to save member address
+    PolicySrvMbrAdd saveMemberAddress(Long memberAdditionId, String createdBy, String modifiedBy,
+            String lineOfBusiness, String policyMbrNo, String policyNumber, String product,
+            String serviceId, String serviceNumber, String serviceStatus, float employeeContribution,
+            float employerContribution, float totalContribution, float voluntaryContribution, int noOfCategory,
+            String mphCode, String mphName, String policyStatus, String rejectionReasonCode,
+            String rejectionRemarks, boolean isActive, String memberAdditionStatus);
 
-    List<POLICY_SRV_MBR_ADD> findByCreatedBy(String createdBy);
-
-    List<POLICY_SRV_MBR_ADD> findByCreatedOn(Timestamp createdOn);
-
-    List<POLICY_SRV_MBR_ADD> findByEmployeeContribution(Integer employeeContribution);
-
-    List<POLICY_SRV_MBR_ADD> findByEmployerContribution(Integer employerContribution);
-
-    List<POLICY_SRV_MBR_ADD> findByIsActive(String isActive);
-
-    List<POLICY_SRV_MBR_ADD> findByLineOfBusiness(String lineOfBusiness);
-
-    List<POLICY_SRV_MBR_ADD> findByMemberAdditionStatus(String memberAdditionStatus);
-
-    List<POLICY_SRV_MBR_ADD> findByModifiedBy(String modifiedBy);
-
-    List<POLICY_SRV_MBR_ADD> findByModifiedOn(Timestamp modifiedOn);
-
-    List<POLICY_SRV_MBR_ADD> findByMphCode(String mphCode);
-
-    List<POLICY_SRV_MBR_ADD> findByMphName(String mphName);
-
-    List<POLICY_SRV_MBR_ADD> findByPolicyId(Long policyId);
-
-    List<POLICY_SRV_MBR_ADD> findByPolicyMbrNo(String policyMbrNo);
-
-    List<POLICY_SRV_MBR_ADD> findByPolicyNumber(String policyNumber);
-
-    List<POLICY_SRV_MBR_ADD> findByPolicyStatus(String policyStatus);
-
-    List<POLICY_SRV_MBR_ADD> findByProduct(String product);
-
-    List<POLICY_SRV_MBR_ADD> findByRejectionReasonCode(String rejectionReasonCode);
-
-    List<POLICY_SRV_MBR_ADD> findByRejectionRemarks(String rejectionRemarks);
-
-    List<POLICY_SRV_MBR_ADD> findByServiceId(Long serviceId);
-
-    List<POLICY_SRV_MBR_ADD> findByServiceNumber(String serviceNumber);
-
-    List<POLICY_SRV_MBR_ADD> findByServiceStatus(String serviceStatus);
-
-    List<POLICY_SRV_MBR_ADD> findByTotalContribution(Integer totalContribution);
-
-    List<POLICY_SRV_MBR_ADD> findByUnitCode(String unitCode);
-
-    List<POLICY_SRV_MBR_ADD> findByVoluntaryContribution(Integer voluntaryContribution);
-
-    List<POLICY_SRV_MBR_ADD> findByNoOfCategory(Integer noOfCategory);
-
-    void save(POLICY_SRV_MBR_ADD policySrvMbrAdd);
-
-    void update(POLICY_SRV_MBR_ADD policySrvMbrAdd);
+    // Method to update member address
+    PolicySrvMbrAdd updateMemberAddress(Long memberAdditionId, String modifiedBy,
+            String lineOfBusiness, String policyMbrNo, String policyNumber, String product,
+            String serviceId, String serviceNumber, String serviceStatus, float employeeContribution,
+            float employerContribution, float totalContribution, float voluntaryContribution, int noOfCategory,
+            String mphCode, String mphName, String policyStatus, String rejectionReasonCode,
+            String rejectionRemarks, boolean isActive, String memberAdditionStatus);
 
 }

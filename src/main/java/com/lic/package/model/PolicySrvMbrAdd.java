@@ -1,54 +1,93 @@
-:product, REJECTION_REASON_CODE = :rejectionReasonCode, REJECTION_REMARKS = :rejectionRemarks, SERVICE_ID = :serviceId, SERVICE_NUMBER = :serviceNumber, SERVICE_STATUS = :serviceStatus, TOTAL_CONTRIBUTION = :totalContribution, UNIT_CODE = :unitCode, VOLUNTARY_CONTRIBUTION = :voluntaryContribution, NO_OF_CATEGORY = :noOfCategory WHERE ID = :id")
-    int updateMemberAddress(@Param("id") long id, @Param("employeeContribution") int employeeContribution, @Param("employerContribution") int employerContribution, @Param("isActive") int isActive, @Param("lineOfBusiness") String lineOfBusiness, @Param("memberAdditionStatus") String memberAdditionStatus, @Param("modifiedBy") String modifiedBy, @Param("modifiedOn") Timestamp modifiedOn, @Param("mphCode") String mphCode, @Param("mphName") String mphName, @Param("policyId") long policyId, @Param("policyMbrNo") String policyMbrNo, @Param("policyNumber") String policyNumber, @Param("policyStatus") String policyStatus, @Param("product") String product, @Param("rejectionReasonCode") String rejectionReasonCode, @Param("rejectionRemarks") String rejectionRemarks, @Param("serviceId") long serviceId, @Param("serviceNumber") String serviceNumber, @Param("serviceStatus") String serviceStatus, @Param("totalContribution") int totalContribution, @Param("unitCode") String unitCode, @Param("voluntaryContribution") int voluntaryContribution, @Param("noOfCategory") int noOfCategory);
-}
-
-
 package com.lic.package.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.sql.Timestamp;
 
 @Entity
-@Table(name = "POLICY_SRV_MBR_ADD")
+@Table(name = "Policy_Srv_Mbr_Add")
 public class PolicySrvMbrAdd {
 
     @Id
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long memberAdditionId;
 
+    @Column(name = "CREATED_BY")
     private String createdBy;
-    private Timestamp createdOn;
-    private int employeeContribution;
-    private int employerContribution;
-    private int isActive;
-    private String lineOfBusiness;
-    private String memberAdditionStatus;
+
+    @Column(name = "MODIFIED_BY")
     private String modifiedBy;
-    private Timestamp modifiedOn;
-    private String mphCode;
-    private String mphName;
-    private long policyId;
+
+    @Column(name = "LINE_OF_BUSINESS")
+    private String lineOfBusiness;
+
+    @Column(name = "POLICY_MBR_NO")
     private String policyMbrNo;
+
+    @Column(name = "POLICY_NUMBER")
     private String policyNumber;
-    private String policyStatus;
+
+    @Column(name = "PRODUCT")
     private String product;
-    private String rejectionReasonCode;
-    private String rejectionRemarks;
-    private long serviceId;
+
+    @Column(name = "SERVICE_ID")
+    private String serviceId;
+
+    @Column(name = "SERVICE_NUMBER")
     private String serviceNumber;
+
+    @Column(name = "SERVICE_STATUS")
     private String serviceStatus;
-    private int totalContribution;
-    private String unitCode;
-    private int voluntaryContribution;
+
+    @Column(name = "EMPLOYEE_CONTRIBUTION")
+    private float employeeContribution;
+
+    @Column(name = "EMPLOYER_CONTRIBUTION")
+    private float employerContribution;
+
+    @Column(name = "TOTAL_CONTRIBUTION")
+    private float totalContribution;
+
+    @Column(name = "VOLUNTARY_CONTRIBUTION")
+    private float voluntaryContribution;
+
+    @Column(name = "NO_OF_CATEGORY")
     private int noOfCategory;
 
-    public Long getId() {
-        return id;
+    @Column(name = "MPH_CODE")
+    private String mphCode;
+
+    @Column(name = "MPH_NAME")
+    private String mphName;
+
+    @Column(name = "POLICY_STATUS")
+    private String policyStatus;
+
+    @Column(name = "REJECTION_REASON_CODE")
+    private String rejectionReasonCode;
+
+    @Column(name = "REJECTION_REMARKS")
+    private String rejectionRemarks;
+
+    @Column(name = "IS_ACTIVE")
+    private boolean isActive;
+
+    @Column(name = "MEMBER_ADDITION_STATUS")
+    private String memberAdditionStatus;
+
+    @Column(name = "MODIFIED_ON")
+    private String modifiedOn;
+
+    // Getters and Setters
+    public Long getMemberAdditionId() {
+        return memberAdditionId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMemberAdditionId(Long memberAdditionId) {
+        this.memberAdditionId = memberAdditionId;
     }
 
     public String getCreatedBy() {
@@ -59,36 +98,12 @@ public class PolicySrvMbrAdd {
         this.createdBy = createdBy;
     }
 
-    public Timestamp getCreatedOn() {
-        return createdOn;
+    public String getModifiedBy() {
+        return modifiedBy;
     }
 
-    public void setCreatedOn(Timestamp createdOn) {
-        this.createdOn = createdOn;
-    }
-
-    public int getEmployeeContribution() {
-        return employeeContribution;
-    }
-
-    public void setEmployeeContribution(int employeeContribution) {
-        this.employeeContribution = employeeContribution;
-    }
-
-    public int getEmployerContribution() {
-        return employerContribution;
-    }
-
-    public void setEmployerContribution(int employerContribution) {
-        this.employerContribution = employerContribution;
-    }
-
-    public int getIsActive() {
-        return isActive;
-    }
-
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
+    public void setModifiedBy(String modifiedBy) {
+        this.modifiedBy = modifiedBy;
     }
 
     public String getLineOfBusiness() {
@@ -99,5 +114,33 @@ public class PolicySrvMbrAdd {
         this.lineOfBusiness = lineOfBusiness;
     }
 
-    public String getMemberAdditionStatus() {
-        return memberAdditionStatus;
+    public String getPolicyMbrNo() {
+        return policyMbrNo;
+    }
+
+    public void setPolicyMbrNo(String policyMbrNo) {
+        this.policyMbrNo = policyMbrNo;
+    }
+
+    public String getPolicyNumber() {
+        return policyNumber;
+    }
+
+    public void setPolicyNumber(String policyNumber) {
+        this.policyNumber = policyNumber;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
+    public String getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(String serviceId) {
+        this.serviceId = serviceId;
