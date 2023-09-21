@@ -1,27 +1,34 @@
-@Repository
+o   The columns in this table that must be updated are: EMPLOYEE_CONTRIBUTION, EMPLOYER_CONTRIBUTION, IS_ACTIVE, LINE_OF_BUSINESS, MODIFIED_BY, MODIFIED_ON, NO_OF_CATEGORY, POLICY_MBR_NO, POLICY_STATUS, PRODUCT, REJECTION_REASON_CODE, REJECTION_REMARKS, SERVICE_ID, SERVICE_NUMBER, SERVICE_STATUS, TOTAL_CONTRIBUTION, UNIT_CODE, VOLUNTARY_CONTRIBUTION
+
+package com.lic.package.repository;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 public interface MemberAddressRepository extends JpaRepository<POLICY_SRV_MBR_ADD, Long> {
-    List<POLICY_SRV_MBR_ADD> findByMEMBER_ADDITION_ID(Long MEMBER_ADDITION_ID);
-    List<POLICY_SRV_MBR_ADD> findByCREATED_BY(String CREATED_BY);
-    List<POLICY_SRV_MBR_ADD> findByIS_ACTIVE(String IS_ACTIVE);
-    List<POLICY_SRV_MBR_ADD> findByLINE_OF_BUSINESS(String LINE_OF_BUSINESS);
-    List<POLICY_SRV_MBR_ADD> findByMEMBER_ADDITION_STATUS(String MEMBER_ADDITION_STATUS);
-    List<POLICY_SRV_MBR_ADD> findByMODIFIED_BY(String MODIFIED_BY);
-    List<POLICY_SRV_MBR_ADD> findByMPH_CODE(String MPH_CODE);
-    List<POLICY_SRV_MBR_ADD> findByMPH_NAME(String MPH_NAME);
-    List<POLICY_SRV_MBR_ADD> findByPOLICY_ID(Long POLICY_ID);
-    List<POLICY_SRV_MBR_ADD> findByPOLICY_MBR_NO(String POLICY_MBR_NO);
-    List<POLICY_SRV_MBR_ADD> findByPOLICY_NUMBER(String POLICY_NUMBER);
-    List<POLICY_SRV_MBR_ADD> findByPOLICY_STATUS(String POLICY_STATUS);
-    List<POLICY_SRV_MBR_ADD> findByPRODUCT(String PRODUCT);
-    List<POLICY_SRV_MBR_ADD> findByREJECTION_REASON_CODE(String REJECTION_REASON_CODE);
-    List<POLICY_SRV_MBR_ADD> findByREJECTION_REMARKS(String REJECTION_REMARKS);
-    List<POLICY_SRV_MBR_ADD> findBySERVICE_ID(Long SERVICE_ID);
-    List<POLICY_SRV_MBR_ADD> findBySERVICE_NUMBER(String SERVICE_NUMBER);
-    List<POLICY_SRV_MBR_ADD> findBySERVICE_STATUS(String SERVICE_STATUS);
-    List<POLICY_SRV_MBR_ADD> findByTOTAL_CONTRIBUTION(String TOTAL_CONTRIBUTION);
-    List<POLICY_SRV_MBR_ADD> findByUNIT_CODE(String UNIT_CODE);
-    List<POLICY_SRV_MBR_ADD> findByVOLUNTARY_CONTRIBUTION(String VOLUNTARY_CONTRIBUTION);
-    List<POLICY_SRV_MBR_ADD> findByNO_OF_CATEGORY(String NO_OF_CATEGORY);
 
     @Modifying
-    @Query(value = "UPDATE POLICY_SRV_MBR_ADD SET CREATED_BY = :CREATED_BY, EMPLOYEE_CONTRIBUTION = :EMPLOYEE_CONTRIBUTION, EMPLOYER_CONTRIBUTION = :EMPLOYER_CONTRIBUTION, IS_ACTIVE = :IS_ACTIVE, LINE_OF_BUSINESS = :LINE_OF_BUSINESS, MEMBER_ADDITION_STATUS = :MEMBER_ADDITION_STATUS, MODIFIED_BY = :MODIFIED_BY, MPH_CODE = :MPH_CODE, MPH_NAME = :MPH_NAME, POLICY_ID = :POLICY_ID, POLICY_MBR_NO = :POLICY_MBR_NO, POLICY_NUMBER = :POLICY_NUMBER, POLICY_STATUS = :POLICY_STATUS, PRODUCT = :PRODUCT, REJECTION_REASON_CODE = :REJECTION_REASON_CODE, REJECTION_REMARKS = :REJECTION_REMARKS, SERVICE_ID = :SERVICE_ID, SERVICE_NUMBER = :SER
+    @Query("UPDATE POLICY_SRV_MBR_ADD SET EMPLOYEE_CONTRIBUTION = :employeeContribution, EMPLOYER_CONTRIBUTION = :employerContribution, IS_ACTIVE = :isActive, LINE_OF_BUSINESS = :lineOfBusiness, MODIFIED_BY = :modifiedBy, MODIFIED_ON = :modifiedOn, NO_OF_CATEGORY = :noOfCategory, POLICY_MBR_NO = :policyMbrNo, POLICY_STATUS = :policyStatus, PRODUCT = :product, REJECTION_REASON_CODE = :rejectionReasonCode, REJECTION_REMARKS = :rejectionRemarks, SERVICE_ID = :serviceId, SERVICE_NUMBER = :serviceNumber, SERVICE_STATUS = :serviceStatus, TOTAL_CONTRIBUTION = :totalContribution, UNIT_CODE = :unitCode, VOLUNTARY_CONTRIBUTION = :voluntaryContribution WHERE MEMBER_ADDITION_ID = :memberAdditionId")
+    int updateMemberAddress(@Param("memberAdditionId") Long memberAdditionId,
+                            @Param("employeeContribution") Double employeeContribution,
+                            @Param("employerContribution") Double employerContribution,
+                            @Param("isActive") Boolean isActive,
+                            @Param("lineOfBusiness") String lineOfBusiness,
+                            @Param("modifiedBy") String modifiedBy,
+                            @Param("modifiedOn") String modifiedOn,
+                            @Param("noOfCategory") Integer noOfCategory,
+                            @Param("policyMbrNo") String policyMbrNo,
+                            @Param("policyStatus") String policyStatus,
+                            @Param("product") String product,
+                            @Param("rejectionReasonCode") Integer rejectionReasonCode,
+                            @Param("rejectionRemarks") String rejectionRemarks,
+                            @Param("serviceId") String serviceId,
+                            @Param("serviceNumber") String serviceNumber,
+                            @Param("serviceStatus") String serviceStatus,
+                            @Param("totalContribution") Double totalContribution,
+                            @Param("unitCode") String unitCode,
+                            @Param("voluntaryContribution") Double voluntaryContribution);
+
+}
